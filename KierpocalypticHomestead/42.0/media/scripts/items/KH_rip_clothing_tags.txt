@@ -1,0 +1,1133 @@
+/*
+ * Kierpocalyptic Homestead - Rip Clothing tag fix (v0.0.2)
+ *
+ * B42 item-script overrides REPLACE fields (not merge), so partial overrides
+ * that only specify `Tags = ...` will strip every other field and break the
+ * item. This file ships the FULL vanilla item body for each target item,
+ * with `base:ripclothingcotton` appended to existing Tags (or set as the
+ * only Tag if vanilla had none).
+ *
+ * Also corrects two vanilla typos: `Tshirt_EMD` shipped with
+ * `base:ripclothingcoton` (missing n) and `Tshirt_IndieStoneDECAL` with
+ * `base:ripclothigcotton` (missing n).
+ *
+ * Bodies copied from media/scripts/generated/items/clothing.txt with
+ * only the Tags line modified.
+ */
+module Base
+{
+    item Socks_Ankle
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = SocksAnkleWhite,
+        BloodLocation = Shoes,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Ankle,
+        FabricType = Cotton,
+        Insulation = 0.15,
+        WindResistance = 0.1,
+        WorldStaticModel = Sock_Ankle_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Ankle_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = SocksAnkleWhite,
+        BloodLocation = Shoes,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Ankle_White,
+        FabricType = Cotton,
+        Insulation = 0.15,
+        WindResistance = 0.1,
+        WorldStaticModel = Sock_Ankle_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Ankle_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = ShortSocks_Black,
+        BloodLocation = Shoes,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Ankle_Black,
+        FabricType = Cotton,
+        Insulation = 0.15,
+        WindResistance = 0.1,
+        WorldStaticModel = Sock_Ankle_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Long
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = SocksWhite,
+        BloodLocation = Shoes;LowerLegs,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Long,
+        FabricType = Cotton,
+        Insulation = 0.35,
+        WindResistance = 0.3,
+        WorldStaticModel = Socks_Long_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Long_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = SocksWhite,
+        BloodLocation = Shoes;LowerLegs,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Long_White,
+        FabricType = Cotton,
+        Insulation = 0.35,
+        WindResistance = 0.3,
+        WorldStaticModel = Socks_Long_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Long_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = LongSocks_Black,
+        BloodLocation = Shoes;LowerLegs,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Long_Black,
+        FabricType = Cotton,
+        Insulation = 0.35,
+        WindResistance = 0.3,
+        WorldStaticModel = Socks_Long_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_Heavy
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = SocksShort,
+        BloodLocation = Shoes;LowerLegs,
+        BodyLocation = base:socks,
+        ClothingItem = Socks_Heavy,
+        FabricType = Cotton,
+        Insulation = 0.55,
+        WindResistance = 0.65,
+        WorldStaticModel = Socks_Long_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Socks_LegWarmers
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Legwarmers,
+        BloodLocation = LowerLegs,
+        BodyLocation = base:legs1,
+        ClothingItem = Socks_LegWarmers,
+        FabricType = Cotton,
+        Insulation = 0.55,
+        WindResistance = 0.65,
+        WorldStaticModel = Socks_Long_Ground,
+        Tags = base:norope;base:ripclothingcotton,
+        ScratchDefense = 5,
+    }
+
+    item Underpants_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Underwear2,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Underpants_Black,
+        ColorBlue = 58,
+        ColorGreen = 58,
+        ColorRed = 58,
+        WorldStaticModel = UnderpantsBlack_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Underpants_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = PantiesGeneric,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Underpants_White,
+        WorldStaticModel = Underpants_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Underpants_RedSpots
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = PantiesSpotted,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Underpants_RedSpots,
+        WorldStaticModel = UnderpantsRedSpots_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Underpants_AnimalPrint
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = PantiesLeopard,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Underpants_AnimalPrint,
+        WorldStaticModel = Underpants_AnimalPrint_Ground,
+        FabricType = Cotton,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item Briefs_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BriefsGeneric,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Briefs_White,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Briefs_AnimalPrints
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BriefsLeopard,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Briefs_AnimalPrint,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item Briefs_SmallTrunks_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Speedo_Black,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_SmallTrunks_Black,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Briefs_SmallTrunks_Blue
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Speedo_Blue,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_SmallTrunks_Blue,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Briefs_SmallTrunks_Red
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Speedo_Red,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_SmallTrunks_Red,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Briefs_SmallTrunks_WhiteTINT
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = SpeedoGeneric,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_SmallTrunks_WhiteTINT,
+        WorldStaticModel = Briefs_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Boxers_Hearts
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BoxersHearts,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Boxers_Hearts,
+        WorldStaticModel = BoxersHearts_Ground,
+        FabricType = Cotton,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item Boxers_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BoxersGeneric,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Boxers_White,
+        WorldStaticModel = Boxers_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Boxers_RedStripes
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BoxersStriped,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Boxers_RedStripes,
+        WorldStaticModel = BoxersRedStripes_Ground,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Boxers_Silk_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BoxersBlacksilky,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Boxers_Silk_Black,
+        WorldStaticModel = Boxers_Silk_Black,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Boxers_Silk_Red
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BoxersRedsilky,
+        BodyLocation = base:underwearbottom,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Boxers_Silk_Red,
+        WorldStaticModel = Boxers_Silk_Red,
+        FabricType = Cotton,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Gloves_LongWomenGloves
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = GlovesLongBlack,
+        BloodLocation = Hands,
+        BodyLocation = base:hands,
+        ClothingItem = Gloves_LongWomenGloves,
+        FabricType = Cotton,
+        Insulation = 0.5,
+        WindResistance = 0.5,
+        WorldStaticModel = GlovesLong_Ground,
+        Researchablerecipes = SewLeatherGloves,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Gloves_WhiteTINT
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = GlovesWoolyWhite,
+        BloodLocation = Hands,
+        BodyLocation = base:hands,
+        ClothingItem = Gloves_WhiteTINT,
+        FabricType = Cotton,
+        Insulation = 1.0,
+        ScratchDefense = 5,
+        WindResistance = 1.0,
+        WorldStaticModel = Gloves_Ground,
+        Researchablerecipes = SewLeatherGloves,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Gloves_HuntingCamo
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.1,
+        Icon = Gloves_CamoTree,
+        BloodLocation = Hands,
+        BodyLocation = base:hands,
+        ClothingItem = Gloves_HuntingCamo,
+        FabricType = Cotton,
+        Insulation = 1.0,
+        ScratchDefense = 5,
+        WindResistance = 1.0,
+        WorldStaticModel = Gloves_Ground,
+        Researchablerecipes = SewLeatherGloves,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Gloves_BurlapWrap
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Armwrap_Burlap,
+        BloodLocation = Hands;ForeArm_L;ForeArm_R,
+        BodyLocation = base:hands,
+        ClothingItem = Gloves_BurlapWrap,
+        FabricType = Cotton,
+        Insulation = 0.5,
+        ScratchDefense = 10,
+        WindResistance = 0.5,
+        WorldStaticModel = GlovesLong_Ground,
+        Researchablerecipes = SewLeatherGloves,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Gloves_RagWrap
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Armwrap_Rag,
+        BloodLocation = Hands;ForeArm_L;ForeArm_R,
+        BodyLocation = base:hands,
+        ClothingItem = Gloves_RagWrap,
+        FabricType = Cotton,
+        Insulation = 0.5,
+        ScratchDefense = 5,
+        WindResistance = 0.5,
+        WorldStaticModel = GlovesLong_Ground,
+        Researchablerecipes = SewLeatherGloves,
+        Tags = base:ripclothingcotton,
+    }
+
+    item Hat_Bandana
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        IconsForTexture = BandanaBlack;BandanaBlue;BandanaRed;BandanaGreen,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_Bandana,
+        ClothingExtraSubmenu = UntieBandana,
+        ClothingItemExtra = Base.Hat_BandanaTied;Base.Hat_BandanaMask,
+        ClothingItemExtraOption = TieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_Bandana_Green
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BandanaGreen,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_Bandana_Green,
+        ClothingExtraSubmenu = UntieBandana,
+        ClothingItemExtra = Base.Hat_BandanaTied_Green;Base.Hat_BandanaMask_Green,
+        ClothingItemExtraOption = TieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaTINT
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BandanaBlack,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaTINT,
+        ClothingExtraSubmenu = UntieBandana,
+        ClothingItemExtra = Base.Hat_BandanaTiedTINT;Base.Hat_BandanaMaskTINT,
+        ClothingItemExtraOption = TieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaTied
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        IconsForTexture = RamboBandanna_Black;RamboBandanna_Blue;RamboBandanna_Red;BandanaGreen,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaTied,
+        ClothingExtraSubmenu = TieBandana,
+        ClothingItemExtra = Base.Hat_Bandana;Base.Hat_BandanaMask,
+        ClothingItemExtraOption = UntieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaTied_Green
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BandanaGreen,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaTied_Green,
+        ClothingExtraSubmenu = TieBandana,
+        ClothingItemExtra = Base.Hat_Bandana_Green;Base.Hat_BandanaMask_Green,
+        ClothingItemExtraOption = UntieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaTiedTINT
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = RamboBandanna,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaTiedTINT,
+        ClothingExtraSubmenu = TieBandana,
+        ClothingItemExtra = Base.Hat_BandanaTINT;Base.Hat_BandanaMaskTINT,
+        ClothingItemExtraOption = UntieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:canbedyed;base:norope;base:ripclothingcotton,
+    }
+
+    item Hat_RagBandana
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Bandanna_Rag,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_RagBandana,
+        ClothingExtraSubmenu = UntieBandana,
+        ClothingItemExtra = Base.Hat_RagBandanaTied;Base.Hat_RagBandanaMask,
+        ClothingItemExtraOption = TieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_RagBandanaMask
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Bandanna_Rag,
+        BloodLocation = Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_RagBandanaMask,
+        ClothingExtraSubmenu = TieBandanaFace,
+        ClothingItemExtra = Base.Hat_RagBandana;Base.Hat_RagBandanaTied,
+        ClothingItemExtraOption = UntieBandana;TieBandana,
+        Insulation = 0.1,
+        ScratchDefense = 5,
+        CorpseSicknessDefense = 25.0,
+        FabricType = Cotton,
+        Tags = base:norope;base:islowerdisguise;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_RagBandanaTied
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = RamboBandanna_Rag,
+        BodyLocation = base:hat,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_RagBandanaTied,
+        ClothingExtraSubmenu = TieBandana,
+        ClothingItemExtra = Base.Hat_RagBandana;Base.Hat_RagBandanaMask,
+        ClothingItemExtraOption = UntieBandana;TieBandanaFace,
+        Insulation = 0.1,
+        FabricType = Cotton,
+        Tags = base:norope;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaMask
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        IconsForTexture = Handkerchief_Black;Handkerchief_Blue;Handkerchief_Red;BandanaGreen,
+        BloodLocation = Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaMask,
+        ClothingExtraSubmenu = TieBandanaFace,
+        ClothingItemExtra = Base.Hat_Bandana;Base.Hat_BandanaTied,
+        ClothingItemExtraOption = UntieBandana;TieBandana,
+        Insulation = 0.1,
+        ScratchDefense = 5,
+        CorpseSicknessDefense = 25.0,
+        FabricType = Cotton,
+        Tags = base:norope;base:islowerdisguise;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaMask_Green
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BandanaGreen,
+        BloodLocation = Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaMask_Green,
+        ClothingExtraSubmenu = TieBandanaFace,
+        ClothingItemExtra = Base.Hat_Bandana_Green;Base.Hat_BandanaTied_Green,
+        ClothingItemExtraOption = UntieBandana;TieBandana,
+        Insulation = 0.1,
+        ScratchDefense = 5,
+        CorpseSicknessDefense = 25.0,
+        FabricType = Cotton,
+        Tags = base:norope;base:islowerdisguise;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item Hat_BandanaMaskTINT
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = Handkerchief,
+        BloodLocation = Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        ChanceToFall = 30,
+        ClothingItem = Hat_BandanaMaskTINT,
+        ClothingExtraSubmenu = TieBandanaFace,
+        ClothingItemExtra = Base.Hat_BandanaTINT;Base.Hat_BandanaTiedTINT,
+        ClothingItemExtraOption = UntieBandana;TieBandana,
+        Insulation = 0.1,
+        ScratchDefense = 5,
+        CorpseSicknessDefense = 25.0,
+        FabricType = Cotton,
+        Tags = base:norope;base:islowerdisguise;base:fitswallet;base:ripclothingcotton,
+    }
+
+    item ShemaghScarf
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.3,
+        IconsForTexture = Shemagh_BlackWhite;Shemagh_BlueWhite;Shemagh_Green;Shemagh_Red;Shemagh_RedWhite,
+        BloodLocation = Neck,
+        BodyLocation = base:scarf,
+        CanHaveHoles = false,
+        FabricType = Cotton,
+        Insulation = 0.8,
+        ScratchDefense = 10,
+        WindResistance = 1.0,
+        ClothingItem = ShemaghScarf,
+        ClothingExtraSubmenu = Scarf,
+        ClothingItemExtra = Base.Hat_ShemaghFull;Base.Hat_ShemaghFace;Base.ShemaghScarfFace,
+        ClothingItemExtraOption = CoverHeadFully;CoverHead;ScarfOverFace,
+        WorldStaticModel = Shemagh_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item ShemaghScarfFace
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.3,
+        IconsForTexture = Shemagh_BlackWhite;Shemagh_BlueWhite;Shemagh_Green;Shemagh_Red;Shemagh_RedWhite,
+        BloodLocation = Neck;Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        FabricType = Cotton,
+        Insulation = 0.8,
+        ScratchDefense = 10,
+        WindResistance = 1.0,
+        ClothingItem = ShemaghScarfFace,
+        ClothingExtraSubmenu = ScarfOverFace,
+        ClothingItemExtra = Base.ShemaghScarf;Base.Hat_ShemaghFull;Base.Hat_ShemaghFace,
+        ClothingItemExtraOption = Scarf;CoverHeadFully;CoverHead,
+        WorldStaticModel = Shemagh_Ground,
+        CorpseSicknessDefense = 25.0,
+        Tags = base:islowerdisguise;base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item ShemaghScarf_Green
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.3,
+        Icon = Shemagh_Green,
+        BloodLocation = Neck,
+        BodyLocation = base:scarf,
+        CanHaveHoles = false,
+        FabricType = Cotton,
+        Insulation = 0.8,
+        ScratchDefense = 10,
+        WindResistance = 1.0,
+        ClothingItem = ShemaghScarf_Green,
+        ClothingExtraSubmenu = Scarf,
+        ClothingItemExtra = Base.Hat_ShemaghFull_Green;Base.Hat_ShemaghFace_Green;Base.ShemaghScarfFace_Green,
+        ClothingItemExtraOption = CoverHeadFully;CoverHead;ScarfOverFace,
+        WorldStaticModel = Shemagh_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item ShemaghScarfFace_Green
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:clothing,
+        Weight = 0.3,
+        Icon = Shemagh_Green,
+        BloodLocation = Neck;Head,
+        BodyLocation = base:mask,
+        CanHaveHoles = false,
+        FabricType = Cotton,
+        Insulation = 0.8,
+        ScratchDefense = 10,
+        WindResistance = 1.0,
+        ClothingItem = ShemaghScarfFace_Green,
+        ClothingExtraSubmenu = ScarfOverFace,
+        ClothingItemExtra = Base.ShemaghScarf_Green;Base.Hat_ShemaghFull_Green;Base.Hat_ShemaghFace_Green,
+        ClothingItemExtraOption = Scarf;CoverHeadFully;CoverHead,
+        WorldStaticModel = Shemagh_Ground,
+        CorpseSicknessDefense = 25.0,
+        Tags = base:islowerdisguise;base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+    }
+
+    item Shorts_HockeyPants
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        IconsForTexture = HockeyShorts_Black;HockeyShorts_Red;HockeyShorts_Blue;HockeyShorts_White,
+        BloodLocation = ShortsShort,
+        BodyLocation = base:shortsshort,
+        ClothingItem = Shorts_HockeyPants,
+        CanHaveHoles = true,
+        FabricType = Cotton,
+        Insulation = 0.25,
+        WindResistance = 0.1,
+        WorldStaticModel = LongShorts_Ground,
+        DiscomfortModifier = 0.07,
+        BiteDefense = 30,
+        ScratchDefense = 50,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+        Researchablerecipes = SewTrousers,
+    }
+
+    item Shorts_HockeyPants_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Icon = HockeyShorts_Black,
+        BloodLocation = ShortsShort,
+        BodyLocation = base:shortsshort,
+        ClothingItem = Shorts_HockeyPants_Black,
+        CanHaveHoles = true,
+        FabricType = Cotton,
+        Insulation = 0.25,
+        WindResistance = 0.1,
+        WorldStaticModel = LongShorts_Ground,
+        DiscomfortModifier = 0.07,
+        BiteDefense = 30,
+        ScratchDefense = 50,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+        Researchablerecipes = SewTrousers,
+    }
+
+    item Shorts_HockeyPants_Red
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Icon = HockeyShorts_Red,
+        BloodLocation = ShortsShort,
+        BodyLocation = base:shortsshort,
+        ClothingItem = Shorts_HockeyPants_Red,
+        CanHaveHoles = true,
+        FabricType = Cotton,
+        Insulation = 0.25,
+        WindResistance = 0.1,
+        WorldStaticModel = LongShorts_Ground,
+        DiscomfortModifier = 0.07,
+        BiteDefense = 30,
+        ScratchDefense = 50,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+        Researchablerecipes = SewTrousers,
+    }
+
+    item Shorts_HockeyPants_UniBlue
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Icon = HockeyShorts_Blue,
+        BloodLocation = ShortsShort,
+        BodyLocation = base:shortsshort,
+        ClothingItem = Shorts_HockeyPants_UniBlue,
+        CanHaveHoles = true,
+        FabricType = Cotton,
+        Insulation = 0.25,
+        WindResistance = 0.1,
+        WorldStaticModel = LongShorts_Ground,
+        DiscomfortModifier = 0.07,
+        BiteDefense = 30,
+        ScratchDefense = 50,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+        Researchablerecipes = SewTrousers,
+    }
+
+    item Shorts_HockeyPants_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Icon = HockeyShorts_White,
+        BloodLocation = ShortsShort,
+        BodyLocation = base:shortsshort,
+        ClothingItem = Shorts_HockeyPants_White,
+        CanHaveHoles = true,
+        FabricType = Cotton,
+        Insulation = 0.25,
+        WindResistance = 0.1,
+        WorldStaticModel = LongShorts_Ground,
+        DiscomfortModifier = 0.07,
+        BiteDefense = 30,
+        ScratchDefense = 50,
+        Tags = base:ignorezombiedensity;base:ripclothingcotton,
+        Researchablerecipes = SewTrousers,
+    }
+
+    item Tshirt_EMD
+    {
+        DisplayCategory = Memento,
+        ItemType = base:clothing,
+        Icon = TshirtGeneric,
+        BloodLocation = Shirt,
+        BodyLocation = base:tshirt,
+        ClothingItem = Tshirt_EMD,
+        ColorBlue = 21,
+        ColorGreen = 21,
+        ColorRed = 21,
+        FabricType = Cotton,
+        Insulation = 0.2,
+        WindResistance = 0.05,
+        WorldStaticModel = TShirt_Ground,
+        Tags = base:ismemento;base:ripclothingcotton,
+    }
+
+    item Tshirt_IndieStoneDECAL
+    {
+        DisplayCategory = Memento,
+        ItemType = base:clothing,
+        Icon = TshirtGeneric,
+        BloodLocation = Shirt,
+        BodyLocation = base:tshirt,
+        ClothingItem = Tshirt_IndieStoneDECAL,
+        FabricType = Cotton,
+        Insulation = 0.3,
+        WindResistance = 0.25,
+        WorldStaticModel = TShirt_Ground,
+        Tags = base:ismemento;base:ripclothingcotton,
+    }
+
+
+    /* ---- Bras (Cotton; rip into RippedSheets) ---- */
+
+
+    item Bra_Strapless_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraStraplessGeneric,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Strapless_Black,
+        ColorBlue = 58,
+        ColorGreen = 58,
+        ColorRed = 58,
+        WorldStaticModel = BraStraplessBlack_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_RedSpots
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraStraplessSpotted,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Strapless_RedSpots,
+        WorldStaticModel = BraStraplessRedSpots_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraStraplessGeneric,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Strapless_White,
+        WorldStaticModel = BraStrapless_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_Black
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraGeneric,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Straps_Black,
+        ColorBlue = 58,
+        ColorGreen = 58,
+        ColorRed = 58,
+        WorldStaticModel = BraBlack_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_White
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraGeneric,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Straps_White,
+        WorldStaticModel = Bra_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_AnimalPrint
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraLeopardStrapless,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Strapless_AnimalPrint,
+        WorldStaticModel = BraStraplessAnimalPrint_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_AnimalPrint
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraLeopard,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Straps_AnimalPrint,
+        WorldStaticModel = Bra_AnimalPrint_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_FrillyBlack
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraBlacklacy,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Straps_Black,
+        WorldStaticModel = Bra_FrillyBlack_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_FrillyBlack
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraBlacklacyStrapless,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Strapless_Black,
+        WorldStaticModel = BraStraplessFrillyBlack_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_FrillyPink
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraPinklacy,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Straps_Pink,
+        WorldStaticModel = Bra_FrillyPink_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_FrillyPink
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraPinklacyStrapless,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Strapless_Pink,
+        WorldStaticModel = BraStraplessFrillyPink_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Straps_FrillyRed
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraRedsilky,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Straps_Red,
+        WorldStaticModel = Bra_FrillyRed_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+
+    item Bra_Strapless_FrillyRed
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraRedsilkyStrapless,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_FrillyBra_Strapless_Red,
+        WorldStaticModel = BraStraplessFrillyRed_Ground,
+        Tags = base:isfirefuel;base:isfiretinder;base:ignorezombiedensity;base:ripclothingcotton,
+        FabricType = Cotton,
+    }
+
+    /* ---- Hide Bras (Leather; rip via RipDenimClothing recipe) ---- */
+
+
+    item Bra_Strapless_Hide
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraLeopardStrapless,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Strapless_Hide,
+        WorldStaticModel = BraStraplessAnimalPrint_Ground,
+        FabricType = Leather,
+        Tags = base:ripclothingleather,
+    }
+
+
+    item Bra_Straps_Hide
+    {
+        DisplayCategory = Clothing,
+        ItemType = base:clothing,
+        Weight = 0.2,
+        Icon = BraLeopard,
+        BodyLocation = base:underweartop,
+        CanHaveHoles = false,
+        ClothingItem = Underwear_Bra_Straps_Hide,
+        WorldStaticModel = Bra_AnimalPrint_Ground,
+        FabricType = Leather,
+        Tags = base:ripclothingleather,
+    }
+
+}

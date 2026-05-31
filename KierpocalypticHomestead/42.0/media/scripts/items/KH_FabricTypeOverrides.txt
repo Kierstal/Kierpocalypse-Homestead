@@ -1,0 +1,11 @@
+/*
+ * Kierpocalyptic Homestead - FabricType overrides
+ *
+ * SUPERSEDED 2026-05-13. The bras formerly handled here are now in
+ * KH_rip_clothing_tags.txt with full item bodies (including FabricType
+ * + Tags = base:ripclothingcotton/leather). Partial overrides that
+ * only set a single field break the rest of the item in B42, so this
+ * file is intentionally left empty - kept as a stub so future passes
+ * see the migration note instead of recreating the partial-override
+ * pattern.
+ */

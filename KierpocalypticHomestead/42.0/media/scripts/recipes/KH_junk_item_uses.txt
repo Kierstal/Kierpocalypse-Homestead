@@ -1,0 +1,65 @@
+/*
+ * Kierpocalyptic Homestead - junk item uses (Phase 5 v1)
+ *
+ * Repurposes vanilla "junk" items per the audit. These are recipe-level
+ * additions; Lua-level interactions (board game boredom relief, etc.) live
+ * in their own client/* modules.
+ *
+ * Spirit: apocalyptic homestead, dark humor, real survival logic.
+ * Perfume/Cologne = alcohol = improvised disinfectant. Real practice.
+ */
+module Base
+{
+    /* ---------- Perfume / Cologne -> disinfect bandage ---------- */
+    /* Pour a tiny bottle of perfume on a clean rag/bandage to make it
+       sterile-ish. Vanilla has Base.AlcoholRippedSheets (sterile rag);
+       we route both fluids to that output. The component-FluidContainer
+       on Perfume/Cologne is consumed by the recipe (mode:destroy). */
+    craftRecipe KH_DisinfectBandage_Perfume
+    {
+        timedAction = Making,
+        time = 50,
+        Tags = InHandCraft,
+        category = First Aid,
+        xpAward = FirstAid:3,
+        inputs
+        {
+            item 1 [Base.Perfume] mode:destroy,
+            item 1 [Base.Bandage;Base.RippedSheets] mode:destroy mappers[rag],
+        }
+        outputs
+        {
+            item 1 mapper:rag,
+        }
+        itemMapper rag
+        {
+            Base.AlcoholBandage    = Base.Bandage,
+            Base.AlcoholRippedSheets = Base.RippedSheets,
+            default = Base.AlcoholRippedSheets,
+        }
+    }
+
+    craftRecipe KH_DisinfectBandage_Cologne
+    {
+        timedAction = Making,
+        time = 50,
+        Tags = InHandCraft,
+        category = First Aid,
+        xpAward = FirstAid:3,
+        inputs
+        {
+            item 1 [Base.Cologne] mode:destroy,
+            item 1 [Base.Bandage;Base.RippedSheets] mode:destroy mappers[rag],
+        }
+        outputs
+        {
+            item 1 mapper:rag,
+        }
+        itemMapper rag
+        {
+            Base.AlcoholBandage    = Base.Bandage,
+            Base.AlcoholRippedSheets = Base.RippedSheets,
+            default = Base.AlcoholRippedSheets,
+        }
+    }
+}

@@ -1,0 +1,636 @@
+module Base
+{
+    craftRecipe KH_MakeCannedBolognese
+    {
+        timedAction = Making,
+        time = 250,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 1 [Base.Macaroni;Base.Pasta],
+            item 1 tags[base:meat] mode:keep,
+            item 1 [Base.Tomato],
+        }
+        outputs
+        {
+            item 1 Base.CannedBolognese,
+        }
+    }
+
+    craftRecipe KH_MakeCannedChili
+    {
+        timedAction = Making,
+        time = 250,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 1 tags[base:meat] mode:keep,
+            item 1 [Base.Tomato],
+            item 1 [Base.Pepper],
+        }
+        outputs
+        {
+            item 1 Base.CannedChili,
+        }
+    }
+
+    craftRecipe KH_MakeCannedFruitCocktail
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 4 tags[base:fruit] mode:keep,
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.CannedFruitCocktail,
+        }
+    }
+
+    craftRecipe KH_MakeCannedFruitBeverage
+    {
+        timedAction = Making,
+        time = 150,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 3 tags[base:fruit] mode:keep,
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.CannedFruitBeverage,
+        }
+    }
+
+    craftRecipe KH_MakeCannedMilk
+    {
+        timedAction = Making,
+        time = 150,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 2 tags[base:milk],
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.CannedMilk,
+        }
+    }
+
+    craftRecipe KH_MakeCannedPeaches
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 3 [Base.Peach],
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.CannedPeaches,
+        }
+    }
+
+    craftRecipe KH_MakeCannedSardines
+    {
+        timedAction = Making,
+        time = 180,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 3 tags[base:fishmeat] mode:keep,
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.CannedSardines,
+        }
+    }
+
+    craftRecipe KH_MakeTinnedBeans
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 2 [Base.DriedBlackBeans;Base.DriedKidneyBeans;Base.DriedWhiteBeans;Base.Soybeans],
+        }
+        outputs
+        {
+            item 1 Base.TinnedBeans,
+        }
+    }
+
+    craftRecipe KH_MakeTinnedSoup
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 2 tags[base:vegetables] mode:keep,
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.TinnedSoup,
+        }
+    }
+
+    craftRecipe KH_MakeTunaTin
+    {
+        timedAction = Making,
+        time = 180,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.TinCanEmpty],
+            item 1 [Base.FishFillet] mode:keep,
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.TunaTin,
+        }
+    }
+
+    craftRecipe KH_MakeCheese
+    {
+        timedAction = Making,
+        time = 400,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 4 tags[base:milk],
+            item 1 [Base.Salt],
+            item 1 tags[base:sharpknife] mode:keep flags[MayDegradeLight],
+        }
+        outputs
+        {
+            item 1 Base.Cheese,
+        }
+    }
+
+    craftRecipe KH_DryAnimalMilkPowder
+    {
+        timedAction = Making,
+        time = 350,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 5 tags[base:milk],
+        }
+        outputs
+        {
+            item 1 Base.AnimalMilkPowder,
+        }
+    }
+
+    craftRecipe KH_GrindChocolateChips
+    {
+        timedAction = Making,
+        time = 80,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.Chocolate],
+            item 1 tags[base:sharpknife] mode:keep flags[MayDegradeLight],
+        }
+        outputs
+        {
+            item 1 Base.ChocolateChips,
+        }
+    }
+
+    craftRecipe KH_BagCandy
+    {
+        timedAction = Making,
+        time = 30,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:1,
+        inputs
+        {
+            item 5 [Base.CandyGummyfish;Base.CandyCaramels;Base.CandyCorn;Base.CandyFruitSlices;Base.CandyMolasses;Base.Candycane;Base.CandyNovapops],
+        }
+        outputs
+        {
+            item 1 Base.CandyPackage,
+        }
+    }
+
+    craftRecipe KH_BakeCone
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.Egg],
+            item 1 tags[base:flour],
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.Cone,
+        }
+    }
+
+    craftRecipe KH_CurePork
+    {
+        timedAction = Making,
+        time = 400,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 1 [Base.Pork],
+            item 1 [Base.Salt],
+            item 1 tags[base:sharpknife] mode:keep flags[MayDegradeLight],
+        }
+        outputs
+        {
+            item 1 Base.Bacon,
+        }
+    }
+
+    craftRecipe KH_CureHam
+    {
+        timedAction = Making,
+        time = 500,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:5,
+        inputs
+        {
+            item 1 [Base.Pork],
+            item 1 [Base.Salt],
+            item 1 [Base.Sugar],
+        }
+        outputs
+        {
+            item 1 Base.Ham,
+        }
+    }
+
+    craftRecipe KH_MakeSalami
+    {
+        timedAction = Making,
+        time = 400,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:5,
+        inputs
+        {
+            item 1 [Base.MincedMeat],
+            item 1 [Base.Salt],
+            item 1 [Base.Pepper],
+        }
+        outputs
+        {
+            item 1 Base.Salami,
+        }
+    }
+
+    craftRecipe KH_MakeBaloney
+    {
+        timedAction = Making,
+        time = 300,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 1 [Base.MincedMeat],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.Baloney,
+        }
+    }
+
+    craftRecipe KH_MakeHotdogPack
+    {
+        timedAction = Making,
+        time = 300,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 2 [Base.MincedMeat],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.HotdogPack,
+        }
+    }
+
+    craftRecipe KH_RenderLard
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.Pork;Base.Steak],
+        }
+        outputs
+        {
+            item 1 Base.Lard,
+        }
+    }
+
+    craftRecipe KH_MakeMargarine
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 [Base.Lard],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.Margarine,
+        }
+    }
+
+    craftRecipe KH_MixGravyMix
+    {
+        timedAction = Making,
+        time = 60,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 tags[base:flour],
+            item 1 [Base.Salt],
+            item 1 [Base.Pepper],
+        }
+        outputs
+        {
+            item 1 Base.GravyMix,
+        }
+    }
+
+    craftRecipe KH_MixPancakeMix
+    {
+        timedAction = Making,
+        time = 60,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:2,
+        inputs
+        {
+            item 1 tags[base:flour],
+            item 1 tags[base:sugar],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.PancakeMix,
+        }
+    }
+
+    craftRecipe KH_MakeSeasoningSalt
+    {
+        timedAction = Making,
+        time = 30,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:1,
+        inputs
+        {
+            item 1 [Base.Salt],
+            item 1 [Base.Pepper],
+        }
+        outputs
+        {
+            item 1 Base.SeasoningSalt,
+        }
+    }
+
+    craftRecipe KH_MakeMarinara
+    {
+        timedAction = Making,
+        time = 180,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 3 [Base.Tomato],
+            item 1 [Base.Salt],
+            item 1 [Base.Pepper],
+        }
+        outputs
+        {
+            item 1 Base.Marinara,
+        }
+    }
+
+    craftRecipe KH_MakeRiceVinegar
+    {
+        timedAction = Making,
+        time = 400,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:4,
+        inputs
+        {
+            item 2 [Base.Rice],
+            item 1 [Base.Sugar],
+        }
+        outputs
+        {
+            item 1 Base.RiceVinegar,
+        }
+    }
+
+    craftRecipe KH_CultureYeast
+    {
+        timedAction = Making,
+        time = 300,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 tags[base:flour],
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.Yeast,
+        }
+    }
+
+    craftRecipe KH_GrindCocoaPowder
+    {
+        timedAction = Making,
+        time = 80,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 2 [Base.Chocolate],
+            item 1 tags[base:sharpknife] mode:keep flags[MayDegradeLight],
+        }
+        outputs
+        {
+            item 1 Base.CocoaPowder,
+        }
+    }
+
+    craftRecipe KH_MakeMacandcheese
+    {
+        timedAction = Making,
+        time = 200,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 [Base.Macaroni;Base.Pasta],
+            item 1 tags[base:cheese],
+            item 1 tags[base:milk],
+        }
+        outputs
+        {
+            item 1 Base.Macandcheese,
+        }
+    }
+
+    craftRecipe KH_OpenBeans
+    {
+        timedAction = Making,
+        time = 15,
+        Tags = InHandCraft;Cooking;CanBeDoneInDark,
+        category = Cooking,
+        inputs
+        {
+            item 1 [Base.TinnedBeans],
+        }
+        outputs
+        {
+            item 1 Base.OpenBeans,
+        }
+    }
+
+    craftRecipe KH_MakeTortilla
+    {
+        timedAction = Making,
+        time = 100,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 1 tags[base:flour],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 1 Base.Tortilla,
+        }
+    }
+
+    craftRecipe KH_MakeCereal
+    {
+        timedAction = Making,
+        time = 180,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:3,
+        inputs
+        {
+            item 2 [Base.OatsRaw],
+            item 1 tags[base:sugar],
+        }
+        outputs
+        {
+            item 1 Base.Cereal,
+        }
+    }
+
+
+    /* Beef Jerky from any cured meat + salt. Real jerky takes hours of
+       low-heat drying; in game terms a slow craft (~400 ticks) at
+       Cooking 5 XP. Accepts Steak / BeefRoast / Ham / Venison (any
+       item tagged base:meat). Mode:keep on the salt would let you reuse
+       a single salt pouch for many batches, which is too generous;
+       defaulting to mode:destroy. */
+    craftRecipe KH_MakeBeefJerky
+    {
+        timedAction = Making,
+        time = 400,
+        Tags = AnySurfaceCraft;Cooking,
+        category = Cooking,
+        xpAward = Cooking:5,
+        inputs
+        {
+            item 1 tags[base:meat],
+            item 1 [Base.Salt],
+        }
+        outputs
+        {
+            item 2 Base.BeefJerky,
+        }
+    }
+}

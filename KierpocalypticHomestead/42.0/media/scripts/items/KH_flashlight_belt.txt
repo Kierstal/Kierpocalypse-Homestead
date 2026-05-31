@@ -1,0 +1,7 @@
+module Base
+{
+    item HandTorch
+    {
+        AttachmentType = Walkie,
+    }
+}

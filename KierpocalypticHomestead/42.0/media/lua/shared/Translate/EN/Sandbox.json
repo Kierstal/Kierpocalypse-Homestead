@@ -1,0 +1,50 @@
+{
+    "Sandbox_KierpocalypticRising": "Kierpocalyptic Rising",
+    "Sandbox_KierpocalypticRising_tooltip": "Rising preset, retuned for the Kierpocalyptic homestead playstyle. Currently set to NO ZOMBIES for debug.",
+    "Sandbox_KierpocalypticRising_Desc": "Rising preset, retuned for the Kierpocalyptic homestead playstyle. Currently set to NO ZOMBIES for debug. Tune ZombieConfig in the preset .lua to enable them.",
+    "Sandbox_KH_ZombieTrip": "KH: Zombie Trip Chance",
+    "Sandbox_KH_ZombieTrip_tooltip": "Per-minute base chance that a running zombie within sight stumbles and falls. 0 = vanilla. Default 2.",
+    "Sandbox_KH_ZombieTripRainMultiplier": "KH: Zombie Trip Rain Multiplier",
+    "Sandbox_KH_ZombieTripRainMultiplier_tooltip": "Multiplier applied to trip chance when it's raining. Default 2.5.",
+
+    "Sandbox_KH_Compat": "KH Compat",
+
+    "Sandbox_KHCompat_TameBandits": "Tame Bandits (spawn -70%, no base sabotage)",
+    "Sandbox_KHCompat_TameBandits_tooltip": "When ON (and Bandits mod loaded), KH writes conservative spawn / size / behavior values into Bandits at game start. Reduces population to 30%, group sizes to 40%, disables door/window/barricade destruction, vehicle sabotage, theft, crop sabotage, generator cutoff, and roadblocks. Lowers bandit accuracy.",
+
+    "Sandbox_KHCompat_TameBanditsWeekOne": "Tame Bandits Week One (population & events down)",
+    "Sandbox_KHCompat_TameBanditsWeekOne_tooltip": "When ON (and Week One loaded), KH lowers all population multipliers (inhabitants 50%, streets/army/bandits 30%), reduces pistol-spawn chance, halves max patrol vehicles, extends service cooldowns ~4x, and disables disaster events (Final Solution, Boeing crash, strafe, bombing, gas, arson).",
+
+    "Sandbox_KHCompat_DeferToLifestyle_Hygiene": "Defer hygiene to Lifestyle: Hobbies",
+    "Sandbox_KHCompat_DeferToLifestyle_Hygiene_tooltip": "When ON and Lifestyle: Hobbies is loaded, KH's bath/filth/hygiene/dirt/sleep-in-filth modules step aside so Lifestyle owns the whole hygiene axis. Turn OFF to keep KH's hygiene running alongside Lifestyle's (will likely double up moodles and context actions).",
+
+    "Sandbox_KHCompat_DeferToLifestyle_Toilet": "Defer toilet to Lifestyle: Hobbies",
+    "Sandbox_KHCompat_DeferToLifestyle_Toilet_tooltip": "When ON and Lifestyle: Hobbies is loaded, KH's toilet need and Use Toilet action step aside. Turn OFF to run both (will produce two Use Toilet context entries).",
+
+    "Sandbox_KHCompat_DeferToSaph_Recipes": "Defer cooking inputs to Sapph's Cooking",
+    "Sandbox_KHCompat_DeferToSaph_Recipes_tooltip": "When ON and Sapph's Cooking is loaded, KH's overlapping cooking-input recipes don't register. Turn OFF to keep KH's recipes in addition (may produce duplicate craftRecipe entries).",
+
+    "Sandbox_KHCompat_DeferToSaph_BeefJerky": "Defer Beef Jerky to Sapph's Cooking",
+    "Sandbox_KHCompat_DeferToSaph_BeefJerky_tooltip": "When ON, KH's Beef Jerky craft defers to Sapph's equivalent if Sapph is loaded. No-op when Sapph is absent.",
+
+    "Sandbox_KHCompat_UsePetsOnAE": "Run KH Pets on AnimalEssentials",
+    "Sandbox_KHCompat_UsePetsOnAE_tooltip": "When ON and AnimalEssentials is loaded, KH's pet system migrates onto AE's framework as a sibling expansion to Pawject Meowboid. Turn OFF to keep KH's standalone pet implementation (legacy behavior; not recommended once the migration lands).",
+
+    "Sandbox_KHCompat_DeferToMeowboid_Cats": "Defer cats to Pawject Meowboid",
+    "Sandbox_KHCompat_DeferToMeowboid_Cats_tooltip": "When ON and Pawject Meowboid is loaded, cats are Meowboid's domain. KH handles dogs, raccoons, rats, rabbits, and livestock pets only. Turn OFF if you want KH's older rabbit-as-cat fallback even when Meowboid is present.",
+
+    "Sandbox_KHCompat_DeferToHGTS_Climate": "Defer climate colors to Here Goes the Sun",
+    "Sandbox_KHCompat_DeferToHGTS_Climate_tooltip": "When ON and HGTS is loaded, KH does NOT apply its day/dawn/dusk season color overrides. HGTS owns this domain much more thoroughly. Turn OFF only if you want KH's flatter overrides on top of HGTS's per-weather work.",
+
+    "Sandbox_KHCompat_DeferToFool_Containers": "Defer to FOOL Containers where overlap",
+    "Sandbox_KHCompat_DeferToFool_Containers_tooltip": "When ON and FOOL Containers is loaded, KH's container additions defer where they overlap. KH_ColdStorage (containers-as-fridge) remains active in either case since FOOL doesn't cover that domain.",
+
+    "Sandbox_KHCompat_EnableSpawnLocations": "Override spawn by profession",
+    "Sandbox_KHCompat_EnableSpawnLocations_tooltip": "When ON, KH teleports the player to a profession-appropriate building at game start (Park Ranger to a ranger station, etc.). Requires KH to have a candidate location for your profession AND for your chosen spawn region to match one. Default OFF until coordinates are validated.",
+
+    "Sandbox_KHCompat_StartWithCompanion": "Start with a pre-recruited companion",
+    "Sandbox_KHCompat_StartWithCompanion_tooltip": "When ON, KH spawns a pre-recruited SSR resident at your homestead so you start with company. Default OFF (most players prefer to find people in the world and bring them home). Requires SSR Quest System + Furniture Folks extension to be loaded.",
+
+    "Sandbox_KHCompat_ParkRangerNoIntrusion": "Park Ranger welfare-check exemption",
+    "Sandbox_KHCompat_ParkRangerNoIntrusion_tooltip": "When ON and you're playing as Park Ranger, residential buildings don't flag you as an intruder under BWO's intrusion mechanic. The framing: residents recognize the uniform and treat your visit as a welfare check. Turn OFF if you want vanilla BWO intrusion behavior even on Park Ranger."
+}

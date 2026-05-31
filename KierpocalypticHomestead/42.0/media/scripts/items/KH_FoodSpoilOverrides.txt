@@ -1,0 +1,401 @@
+/*
+ * Kierpocalyptic Homestead - food spoil-timer overrides
+ *
+ * Vanilla B42 ships some food items with absurdly short DaysFresh /
+ * DaysTotallyRotten values:
+ *   - 10 sealed canned vegetables at 30/60d (real cans are 2-5+ years)
+ *   - Apple at 5/8d (real apples 2 weeks room temp, 1-2 months refrigerated)
+ *   - Cabbage at 2/4d (cabbage keeps 1-3 weeks)
+ *   - Bacon family at 3/5d (cured bacon, raw, lasts 1-2 weeks unsealed)
+ *   - EggBoiled at 3/6d (hard-boiled in shell lasts ~1 week)
+ *
+ * Full vanilla item bodies are reproduced here (with only DaysFresh /
+ * DaysTotallyRotten changed) because B42 item-script partial overrides
+ * are unreliable - same merge issue that bit us with recipes.
+ *
+ * Skipped intentionally: anything where vanilla's value is already
+ * defensible for an apocalypse with no fridge (bread, fresh meat,
+ * mushrooms, leafy greens, prepared dishes, cooked egg dishes).
+ */
+module Base
+{
+
+    item CannedBellPepper
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarBrown,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodBellPeppers_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Calories = 180.0,
+        Carbohydrates = 42.0,
+        Lipids = 0.0,
+        Proteins = 6.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedBroccoli
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarGreen,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodBroccoli_Ground,
+        CantEat = true,
+        HungerChange = -45.0,
+        Calories = 55.0,
+        Carbohydrates = 10.0,
+        Lipids = 0.5,
+        Proteins = 4.5,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedCabbage
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarGreen,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodCabbage_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Carbohydrates = 82.0,
+        Proteins = 18.0,
+        Lipids = 1.4,
+        Calories = 360.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedCarrots
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarBrown,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodCarrots_Ground,
+        CantEat = true,
+        HungerChange = -40.0,
+        Calories = 125.0,
+        Carbohydrates = 30.0,
+        Lipids = 0.75,
+        Proteins = 3.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedEggplant
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JamPurple,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodEggplants_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Calories = 342.0,
+        Carbohydrates = 81.0,
+        Lipids = 2.4,
+        Proteins = 13.5,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedLeek
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarWhite,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodLeeks_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Calories = 216.0,
+        Carbohydrates = 560.0,
+        Lipids = 1.2,
+        Proteins = 15.2,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedPotato
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarWhite,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodPotatoes_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Carbohydrates = 45.0,
+        Proteins = 9.0,
+        Lipids = 0.45,
+        Calories = 210.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedRedRadish
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarBrown,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodRadish_Ground,
+        CantEat = true,
+        HungerChange = -45.0,
+        Carbohydrates = 2.25,
+        Proteins = 0.0,
+        Lipids = 0.0,
+        Calories = 15.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedTomato
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = JarBrown,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarFoodTomatoes_Ground,
+        CantEat = true,
+        HungerChange = -48.0,
+        Carbohydrates = 14.0,
+        Proteins = 5.2,
+        Lipids = 0.8,
+        Calories = 56.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item CannedRoe
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.8,
+        Icon = Jar_Roe,
+        DaysFresh = 365,
+        DaysTotallyRotten = 1825,
+        OnCooked = RecipeCodeOnCooked.cannedFood,
+        IsCookable = true,
+        MinutesToBurn = 120,
+        MinutesToCook = 60,
+        WorldStaticModel = JarRoeGround,
+        CantEat = true,
+        HungerChange = -48.0,
+        Carbohydrates = 14.0,
+        Proteins = 5.2,
+        Lipids = 0.8,
+        Calories = 56.0,
+        Tags = base:hasmetal;base:hidehungerchange;base:spawncooked;base:preservedfood,
+        Tooltip = Tooltip_item_CookForPreservation,
+    }
+
+    item Cabbage
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Icon = Cabbage,
+        Weight = 0.2,
+        HungerChange = -24.0,
+        DaysFresh = 10,
+        DaysTotallyRotten = 21,
+        EvolvedRecipe = Soup:12;Stew:12;Stir fry:12;Sandwich:6;Burger:6;Hotdog:6;Salad:12;Taco:6;Burrito:6,
+        ThirstChange = -10.0,
+        FoodType = Vegetables,
+        Carbohydrates = 41.0,
+        Proteins = 9.0,
+        Lipids = 0.7,
+        Calories = 180.0,
+        StaticModel = Cabbage_Ground,
+        WorldStaticModel = Cabbage_Ground,
+        Tags = base:hideuncooked,
+        IsCookable = true,
+        MinutesToCook = 10,
+        MinutesToBurn = 30,
+        CookingSound = FryingFood,
+    }
+
+    item Apple
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.2,
+        Icon = Apple,
+        EvolvedRecipe = Cake:16;FruitSalad:8;Pancakes:8;Muffin:8;PieSweet:16;Oatmeal:4;Salad:8,
+        FoodType = Fruits,
+        HungerChange = -16.0,
+        ThirstChange = -7.0,
+        Calories = 95.0,
+        Carbohydrates = 25.13,
+        Lipids = 0.31,
+        Proteins = 0.47,
+        CustomEatSound = EatingFruit,
+        StaticModel = Apple_Ground,
+        WorldStaticModel = Apple_Ground,
+        DaysFresh = 14,
+        DaysTotallyRotten = 35,
+    }
+
+    item Bacon
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Icon = Bacon,
+        Weight = 0.3,
+        IsCookable = true,
+        MinutesToCook = 20,
+        MinutesToBurn = 50,
+        HungerChange = -12.0,
+        DaysFresh = 14,
+        DaysTotallyRotten = 30,
+        DangerousUncooked = true,
+        EvolvedRecipe = Pizza:12;Stew:12;Pie:12;Stir fry:12;Sandwich:4|Cooked;Burger:4|Cooked;Hotdog:4|Cooked;Rice:12;Pasta:12;Taco:4|Cooked;Burrito:4|Cooked;Toast:4|Cooked,
+        FoodType = Bacon,
+        Carbohydrates = 0.0,
+        Proteins = 10.0,
+        Lipids = 14.0,
+        Calories = 160.0,
+        Packaged = true,
+        GoodHot = true,
+        BadCold = true,
+        StaticModel = BaconStrip_Hand,
+        WorldStaticModel = Bacon_Ground,
+        EvolvedRecipeName = Bacon,
+        CookingSound = FryingFood,
+    }
+
+    item BaconBits
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Icon = TZ_BaconBits,
+        Weight = 0.025,
+        IsCookable = true,
+        MinutesToCook = 15,
+        MinutesToBurn = 30,
+        HungerChange = -1.0,
+        DaysFresh = 14,
+        DaysTotallyRotten = 30,
+        DangerousUncooked = true,
+        EvolvedRecipe = Pizza:1;Omelette:1;Stew:1;Pie:1;Stir fry:1;Sandwich:1|Cooked;Burger:1|Cooked;Hotdog:1|Cooked;Salad:1|Cooked;Rice:1;Pasta:1;Taco:1|Cooked;Burrito:1|Cooked;Toast:1|Cooked,
+        Spice = true,
+        FoodType = Bacon,
+        Carbohydrates = 0.0,
+        Proteins = 0.6125,
+        Lipids = 0.875,
+        Calories = 10.0,
+        GoodHot = true,
+        BadCold = true,
+        StaticModel = BaconBits_Ground,
+        WorldStaticModel = BaconBits_Ground,
+        EvolvedRecipeName = Bacon Bits,
+        CookingSound = FryingFood,
+    }
+
+    item BaconRashers
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Icon = TZ_BaconRashers,
+        Weight = 0.1,
+        IsCookable = true,
+        MinutesToCook = 15,
+        MinutesToBurn = 35,
+        HungerChange = -4.0,
+        DaysFresh = 14,
+        DaysTotallyRotten = 30,
+        DangerousUncooked = true,
+        EvolvedRecipe = Pizza:4;Omelette:4;Stew:4;Pie:4;Stir fry:4;Sandwich:4|Cooked;Burger:4|Cooked;Hotdog:4|Cooked;Salad:4|Cooked;Taco:4|Cooked;Burrito:4|Cooked;Toast:4|Cooked,
+        FoodType = Bacon,
+        Carbohydrates = 0.0,
+        Proteins = 2.5,
+        Lipids = 3.5,
+        Calories = 40.0,
+        GoodHot = true,
+        BadCold = true,
+        StaticModel = BaconStrip_Hand,
+        WorldStaticModel = Bacon_Ground,
+        EvolvedRecipeName = Bacon,
+        CookingSound = FryingFood,
+    }
+
+    item EggBoiled
+    {
+        DisplayCategory = Food,
+        ItemType = base:food,
+        Weight = 0.1,
+        Icon = EggBoiled,
+        EvolvedRecipe = Sandwich:10;Burger:10;Salad:10;Burrito:10;Taco:5;Soup:10;Stew:10,
+        FoodType = Egg,
+        DaysFresh = 7,
+        DaysTotallyRotten = 14,
+        HungerChange = -10.0,
+        Calories = 63.0,
+        Carbohydrates = 0.32,
+        Lipids = 4.18,
+        Proteins = 5.55,
+        StaticModel = EggBoiled_Ground,
+        WorldStaticModel = EggBoiled_Ground,
+        EvolvedRecipeName = Egg,
+    }
+}

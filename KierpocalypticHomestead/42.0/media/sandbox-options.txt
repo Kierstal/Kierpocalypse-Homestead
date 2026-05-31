@@ -1,0 +1,139 @@
+VERSION = 1,
+
+-- Kierpocalyptic Homestead - sandbox toggles for mod compatibility.
+-- Each option follows the pattern "when this third-party mod is loaded
+-- AND this toggle is ON, KH defers to the mod for this feature." Off
+-- means KH stays active even when the mod is present (player wants both
+-- systems, or wants to compare).
+-- Default for every defer-to-mod toggle is TRUE, matching Kierstal's
+-- compatibility-first preference (see kh-compatibility-first-not-reinvent).
+
+-- ---------- Lifestyle: Hobbies (LifestyleHobbies) ----------
+
+option KHCompat.DeferToLifestyle_Hygiene
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToLifestyle_Hygiene,
+}
+
+option KHCompat.DeferToLifestyle_Toilet
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToLifestyle_Toilet,
+}
+
+-- ---------- Sapph's Cooking (SapphCooking_B42) ----------
+
+option KHCompat.DeferToSaph_Recipes
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToSaph_Recipes,
+}
+
+option KHCompat.DeferToSaph_BeefJerky
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToSaph_BeefJerky,
+}
+
+-- ---------- AnimalEssentials + Pawject Meowboid stack ----------
+-- UsePetsOnAE is the master switch for the AE-sibling pets architecture
+-- (see project_kh_pets_ae_sibling_decision). When AE is present and this
+-- is ON, KH's pet system migrates onto AnimalEssentials' framework
+-- instead of running its parallel implementation.
+
+option KHCompat.UsePetsOnAE
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_UsePetsOnAE,
+}
+
+option KHCompat.DeferToMeowboid_Cats
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToMeowboid_Cats,
+}
+
+-- ---------- Here Goes the Sun (HereGoesTheSun) ----------
+-- KH_ClimateColors already defers inline; this exposes the same gate to
+-- the sandbox so the player can force KH's colors back on if desired.
+
+option KHCompat.DeferToHGTS_Climate
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToHGTS_Climate,
+}
+
+-- ---------- FOOL Containers (foolcontainers42) ----------
+
+option KHCompat.DeferToFool_Containers
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_DeferToFool_Containers,
+}
+
+-- ---------- Bandits + Bandits Week One taming ----------
+-- These pair with KH_BanditsTame.lua. When ON (default), KH writes
+-- conservative spawn/behavior values into the Bandits mod's sandbox
+-- options at game start. Turn OFF to play with vanilla Bandits config.
+
+option KHCompat.TameBandits
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_TameBandits,
+}
+
+option KHCompat.TameBanditsWeekOne
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_TameBanditsWeekOne,
+}
+
+-- ---------- Village layer (SSR + KH integration) ----------
+-- The recruitment / hunger / feeding system is a multi-session build. These
+-- toggles ship with the foundation; defaults are OFF so behavior doesn't
+-- change until the player is ready to opt in.
+
+option KHCompat.EnableSpawnLocations
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_EnableSpawnLocations,
+}
+
+option KHCompat.StartWithCompanion
+{
+	type = boolean,
+	default = false,
+	page = KH_Compat,
+	translation = KHCompat_StartWithCompanion,
+}
+
+option KHCompat.ParkRangerNoIntrusion
+{
+	type = boolean,
+	default = true,
+	page = KH_Compat,
+	translation = KHCompat_ParkRangerNoIntrusion,
+}

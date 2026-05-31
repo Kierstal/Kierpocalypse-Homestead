@@ -1,0 +1,16 @@
+{
+    "ContextMenu_KH_TakeTrash": "Take Trash",
+    "ContextMenu_KH_TakeTrash_tooltip": "Pick up this debris.",
+    "ContextMenu_KH_UseToilet": "Use Toilet",
+    "ContextMenu_KH_UseToilet_tooltip": "Relieve yourself.",
+    "ContextMenu_KH_PryDoor": "Pry Open (Crowbar)",
+    "ContextMenu_KH_PryWindow": "Pry Latch (Crowbar)",
+    "ContextMenu_KH_ThrowCorpseWindow": "Throw corpse out window",
+    "ContextMenu_KH_ForceOpenVending": "Force open vending",
+    "ContextMenu_KH_BrushTeeth": "Brush teeth",
+    "ContextMenu_KH_ApplyDeodorant": "Apply deodorant",
+    "ContextMenu_KH_PlayBoardGame": "Play a game",
+    "ContextMenu_KH_KillZombies_On": "Kill Zombies (KH): ON",
+    "ContextMenu_KH_KillZombies_Off": "Kill Zombies (KH): OFF",
+    "ContextMenu_KH_BreakBranches": "Break Branches"
+}

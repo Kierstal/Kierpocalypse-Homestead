@@ -1,0 +1,50 @@
+module Base
+{
+    craftRecipe KH_CollectSeedsBulb
+    {
+        timedAction = Making,
+        time = 60,
+        Tooltip = Tooltip_Recipe_RequireWholeVegetable,
+        Tags = InHandCraft;Farming,
+        category = Farming,
+        inputs
+        {
+            item 1 tags[base:tweezers;base:dullknife;base:sharpknife] mode:keep flags[MayDegradeLight;Prop1;IsNotDull],
+            item 1 [Base.Potato;Base.SweetPotato;Base.Onion;Base.Garlic] flags[AllowRottenItem;ItemCount] mappers[bulb] mode:destroy,
+        }
+        outputs
+        {
+            item 1 mapper:bulb,
+        }
+        itemMapper bulb
+        {
+            Base.PotatoSeed = Base.Potato,
+            Base.SweetPotatoSeed = Base.SweetPotato,
+            Base.OnionSeed = Base.Onion,
+            Base.GarlicSeed = Base.Garlic,
+        }
+    }
+
+    craftRecipe KH_CollectSeedsPod
+    {
+        timedAction = Making,
+        time = 50,
+        Tooltip = Tooltip_Recipe_RequireWholeVegetable,
+        Tags = InHandCraft;Farming,
+        category = Farming,
+        inputs
+        {
+            item 1 [Base.Corn;Base.Greenpeas;Base.Soybeans] flags[AllowRottenItem;ItemCount] mappers[pod] mode:destroy,
+        }
+        outputs
+        {
+            item 2 mapper:pod,
+        }
+        itemMapper pod
+        {
+            Base.CornSeed = Base.Corn,
+            Base.GreenpeasSeed = Base.Greenpeas,
+            Base.SoybeansSeed = Base.Soybeans,
+        }
+    }
+}

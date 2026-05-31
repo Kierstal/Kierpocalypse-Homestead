@@ -1,0 +1,12 @@
+module KH
+{
+    item TrashPile
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = Garbagebag,
+        DisplayName = Pile of Trash,
+        Tags = base:KHTrash,
+    }
+}

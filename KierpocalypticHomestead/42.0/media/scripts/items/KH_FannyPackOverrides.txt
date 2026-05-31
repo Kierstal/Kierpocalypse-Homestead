@@ -1,0 +1,160 @@
+/*
+ * Kierpocalyptic Homestead - fanny pack capacity buff
+ *
+ * Vanilla fanny packs have Capacity = 1 across all six variants
+ * (Front/Back x normal/Hide/Tarp). At weight unit 1, that's roughly one
+ * candy bar - so cramped it makes the slot near-useless.
+ *
+ * This file restates each fanny pack with Capacity = 5. We DO NOT use
+ * partial overrides - per the lesson learned with FabricType, B42 silently
+ * breaks an item when a script supplies only a single field. Each item
+ * body is the complete vanilla definition (as of B42.18 container.txt)
+ * with Capacity bumped.
+ *
+ * If vanilla retunes any of these items (new tag, new sound, new option),
+ * we'll lose that change. Re-grep vanilla container.txt for "item Bag_FannyPack"
+ * after any major build before assuming this file is still accurate.
+ */
+
+module Base
+{
+    item Bag_FannyPackFront
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        IconsForTexture = FannyPack;Fannypack_Sport;Fannypack_Sport2,
+        BodyLocation = base:fannypackfront,
+        CanBeEquipped = base:fannypackfront,
+        Capacity = 5,
+        CloseSound = CloseLeatherBag,
+        ClothingItem = Bag_FannyPackFront,
+        ClothingItemExtra = Base.Bag_FannyPackBack,
+        ClothingItemExtraOption = FannyPack_WearBack,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenLeatherBag,
+        PutInSound = StoreItemLeatherBag,
+        RunSpeedModifier = 0.98,
+        WeightReduction = 85,
+        ClothingExtraSubmenu = FannyPack_WearFront,
+        WorldStaticModel = FannyPack_Ground,
+        Tags = base:isfiretinder;base:isfirefuel,
+        Researchablerecipes = SewHideFannyBag,
+    }
+
+    item Bag_FannyPackBack
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        IconsForTexture = FannyPack;Fannypack_Sport;Fannypack_Sport2,
+        BodyLocation = base:fannypackback,
+        CanBeEquipped = base:fannypackback,
+        Capacity = 5,
+        CloseSound = CloseLeatherBag,
+        ClothingItem = Bag_FannyPackBack,
+        ClothingItemExtra = Base.Bag_FannyPackFront,
+        ClothingItemExtraOption = FannyPack_WearFront,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenLeatherBag,
+        PutInSound = StoreItemLeatherBag,
+        RunSpeedModifier = 0.98,
+        WeightReduction = 85,
+        ClothingExtraSubmenu = FannyPack_WearBack,
+        WorldStaticModel = FannyPack_Ground,
+        Tags = base:isfiretinder;base:isfirefuel,
+        Researchablerecipes = SewHideFannyBag,
+    }
+
+    item Bag_FannyPackFront_Hide
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        Icon = FannypackCrafted,
+        BodyLocation = base:fannypackfront,
+        CanBeEquipped = base:fannypackfront,
+        Capacity = 5,
+        CloseSound = CloseHideFannyPack,
+        ClothingItem = Bag_FannyPackFront_Hide,
+        ClothingItemExtra = Base.Bag_FannyPackBack_Hide,
+        ClothingItemExtraOption = FannyPack_WearBack,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenHideFannyPack,
+        PutInSound = StoreItemHideFannyPack,
+        RunSpeedModifier = 0.98,
+        WeightReduction = 65,
+        ClothingExtraSubmenu = FannyPack_WearFront,
+        WorldStaticModel = FannyPack_Ground,
+        Researchablerecipes = SewCrudeLeatherBackpack;SewHideWallet;SewHideFannyBag,
+    }
+
+    item Bag_FannyPackBack_Hide
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        Icon = FannypackCrafted,
+        BodyLocation = base:fannypackback,
+        CanBeEquipped = base:fannypackback,
+        Capacity = 5,
+        CloseSound = CloseHideFannyPack,
+        ClothingItem = Bag_FannyPackBack_Hide,
+        ClothingItemExtra = Base.Bag_FannyPackFront_Hide,
+        ClothingItemExtraOption = FannyPack_WearFront,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenHideFannyPack,
+        PutInSound = StoreItemHideFannyPack,
+        RunSpeedModifier = 0.98,
+        WeightReduction = 65,
+        ClothingExtraSubmenu = FannyPack_WearBack,
+        WorldStaticModel = FannyPack_Ground,
+        Researchablerecipes = SewCrudeLeatherBackpack;SewHideWallet;SewHideFannyBag,
+    }
+
+    item Bag_FannyPackFront_Tarp
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        Icon = Fannypack_Tarp,
+        BodyLocation = base:fannypackfront,
+        CanBeEquipped = base:fannypackfront,
+        Capacity = 5,
+        CloseSound = CloseHideFannyPack,
+        ClothingItem = Bag_FannyPackFront_Tarp,
+        ClothingItemExtra = Base.Bag_FannyPackBack_Tarp,
+        ClothingItemExtraOption = FannyPack_WearBack,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenHideFannyPack,
+        PutInSound = StoreItemHideFannyPack,
+        RunSpeedModifier = 0.97,
+        WeightReduction = 60,
+        ClothingExtraSubmenu = FannyPack_WearFront,
+        WorldStaticModel = FannyPack_Ground,
+        Researchablerecipes = SewCrudeLeatherBackpack;SewHideWallet;SewHideFannyBag,
+    }
+
+    item Bag_FannyPackBack_Tarp
+    {
+        DisplayCategory = Bag,
+        ItemType = base:container,
+        Weight = 0.2,
+        Icon = Fannypack_Tarp,
+        BodyLocation = base:fannypackback,
+        CanBeEquipped = base:fannypackback,
+        Capacity = 5,
+        CloseSound = CloseHideFannyPack,
+        ClothingItem = Bag_FannyPackBack_Tarp,
+        ClothingItemExtra = Base.Bag_FannyPackFront_Tarp,
+        ClothingItemExtraOption = FannyPack_WearFront,
+        EquipSound = EquipFannyPack,
+        OpenSound = OpenHideFannyPack,
+        PutInSound = StoreItemHideFannyPack,
+        RunSpeedModifier = 0.97,
+        WeightReduction = 60,
+        ClothingExtraSubmenu = FannyPack_WearBack,
+        WorldStaticModel = FannyPack_Ground,
+        Researchablerecipes = SewCrudeLeatherBackpack;SewHideWallet;SewHideFannyBag,
+    }
+}

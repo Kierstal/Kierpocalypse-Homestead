@@ -1,0 +1,21 @@
+/*
+ * Kierpocalyptic Homestead - rip recipes
+ *
+ * Originally this file had four vanilla-recipe overrides (RipClothing/
+ * RipDenimClothing/RipSheets/CutTarp) for Tailoring XP, plus a custom
+ * KH_RipExtraCotton fallback recipe to catch items that vanilla wouldn't
+ * accept. B42.18 broke vanilla overrides (merge-not-replace, "Duplicate
+ * Prop1" crash). And once KH_rip_clothing_tags.txt added the
+ * base:ripclothingcotton tag to underwear / socks / bras / etc., the
+ * vanilla RipClothing recipe started accepting them on its own - which
+ * made KH_RipExtraCotton a redundant duplicate option in the inventory
+ * right-click submenu (user saw two "Rip" entries side by side).
+ *
+ * File reduced to a stub. All ripping now flows through vanilla
+ * RipClothing matching items tagged in KH_rip_clothing_tags.txt, and
+ * vanilla canRipItem path 2 catching towels/dishcloths via the entries
+ * KH_RipOverrides.lua adds to ClothingRecipesDefinitions.
+ *
+ * Tailoring XP boost is still pending - filed as a follow-up to add via
+ * Lua hook on the timed action.
+ */

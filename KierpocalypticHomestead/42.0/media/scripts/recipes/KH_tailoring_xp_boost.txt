@@ -1,0 +1,16 @@
+/*
+ * Kierpocalyptic Homestead - early-tier Tailoring XP boost
+ *
+ * DISABLED 2026-05-13. B42.18 changed vanilla-recipe-override semantics so
+ * defining a recipe with the same name as vanilla in module Base now MERGES
+ * fields rather than replacing them - producing duplicate-field script-load
+ * errors that block world load entirely (saw "Duplicate Prop1 in CutTarp"
+ * from KH_rip_xp.txt). To prevent the same failure on SewFootwrap /
+ * SewHandwrap / SewSack / SewImprovisedBandeau / SewRagBandana / SewShirt /
+ * MakeMattress / SewClothSatchel / SewTrousers / WeaveTwineShoes, this
+ * file is reduced to a stub.
+ *
+ * Tailoring XP boost will be reimplemented via a Lua hook on the relevant
+ * ISCraftRecipeAction.perform() that detects the recipe name and grants
+ * extra XP - no script-side merging required. Follow-up task in TaskList.
+ */
