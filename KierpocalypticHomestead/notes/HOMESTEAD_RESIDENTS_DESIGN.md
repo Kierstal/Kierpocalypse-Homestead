@@ -1,6 +1,9 @@
 # Homestead Residents — Design Note
 
-Status: **DESIGN / not yet implemented**
+Status: **Phase 1 IMPLEMENTED (2026-06-06)** — visual body pending in-game API verification.
+Decisions locked: supplies = virtual "give" store; want reward = small XP + a
+role-themed item gift (so `role` is meaningful, not cosmetic); zombie danger =
+opt-in, default OFF; Phase 3 built last.
 Author intent (Kierstal, 2026-06-06): a Bandits-free, SSR-Quests-free way to
 make it *look* like you're tending a small village. Static mannequin "residents"
 you place from a bedroll, feed, and check on. No walking, no AI, no idle
@@ -167,6 +170,40 @@ draggable window toggled by a keybind and/or a button on the existing Homestead
 character tab — same panel content either way.
 
 --------------------------------------------------------------------------------
+
+## Phase 1 — what shipped (2026-06-06)
+
+Files added:
+- `media/lua/shared/Village/KH_Residents.lua` — the registry/data model
+  (bunks + residents in player modData; mirrors into `KH_NPCRegistry`; defines
+  the ROLES table with `skill`/`themeTag` for Phase 2 rewards).
+- `media/lua/client/Village/KH_ResidentVisual.lua` — **isolated** mannequin
+  adapter. The IsoMannequin spawn is a guarded best-effort probe and is the
+  ONE unverified surface; everything degrades gracefully if it fails (resident
+  still exists, just no body). Console prints `[KH] ResidentVisual ...` lines to
+  verify against in-game.
+- `media/lua/client/Village/KH_ResidentPlacement.lua` — context-menu flow
+  (set-down bedroll → place resident by role + name → dismiss), the 25-tile
+  bunk range check, homestead gating, and the EveryTenMinutes reconciliation
+  sweep (bedroll picked up → dismiss; body missing after reload → respawn).
+- `media/scripts/items/KH_resident_bedroll.txt` — `KH.ResidentBedroll` item.
+- `media/scripts/recipes/KH_resident_bedroll.txt` — craft recipe (2 Sheet +
+  1 Pillow).
+- `media/lua/shared/Translate/EN/ContextMenu.json` — 3 new menu strings.
+
+Design tweak made during build: "pick up bedroll → resident vanishes" is
+honored via the reconciliation sweep, and is also exposed as an explicit
+**Dismiss Resident (recover bedroll)** action — the reliable inverse, since PZ
+has no trustworthy item-removal event.
+
+**To verify in-game (first test):** craft/spawn a bedroll, stand in a claimed
+Homestead, set it down, place a resident, and read `console.txt` for the
+`[KH] ResidentVisual` line — that tells us whether the mannequin body spawned
+or needs the one-line API fix. The rest of the flow (menu, naming, registry,
+halos, dismiss, reconcile) is testable independent of the body.
+
+Still Phase 2/3 (not yet built): supplies "give" UI + daily consumption, the
+Homestead sidebar panel + daily wants + rewards, and the opt-in zombie danger.
 
 ## Phasing
 

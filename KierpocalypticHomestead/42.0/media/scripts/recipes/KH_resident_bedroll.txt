@@ -1,0 +1,27 @@
+/*
+ * Kierpocalyptic Homestead - Resident's Bedroll craft recipe.
+ *
+ * A simple hand-craft: two sheets + a pillow make a bedroll you can set down to
+ * seed a homestead resident. Low bar on purpose - the gameplay is in tending
+ * residents, not in gating the bedroll. Tweak inputs/skill to taste.
+ */
+module KH
+{
+    craftRecipe KH_CraftResidentBedroll
+    {
+        timedAction = Sewing,
+        time        = 150,
+        Tags        = InHandCraft,
+        category    = Survivalist,
+        xpAward     = Tailoring:5,
+        inputs
+        {
+            item 2 [Base.Sheet]  mode:destroy,
+            item 1 [Base.Pillow] mode:destroy,
+        }
+        outputs
+        {
+            item 1 KH.ResidentBedroll,
+        }
+    }
+}
