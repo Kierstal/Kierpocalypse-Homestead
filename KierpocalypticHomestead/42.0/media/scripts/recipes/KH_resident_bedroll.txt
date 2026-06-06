@@ -9,7 +9,7 @@ module KH
 {
     craftRecipe KH_CraftResidentBedroll
     {
-        timedAction = Sewing,
+        timedAction = Making,
         time        = 150,
         Tags        = InHandCraft,
         category    = Survivalist,
