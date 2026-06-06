@@ -10,6 +10,7 @@
 
 require "Needs/KH_NeedsCore"
 require "Thoughts/KH_Thoughts"
+require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -80,6 +81,8 @@ end
 local function tick()
     local player = getPlayer()
     if not player or player:isDead() then return end
+    -- Lifestyle: Hobbies owns the toilet axis when present + toggle on.
+    if KH.deferToilet and KH.deferToilet() then return end
     local d = player:getModData()
     local stats = player:getStats()
     if not stats then return end

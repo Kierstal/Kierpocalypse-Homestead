@@ -19,6 +19,7 @@
 require "TimedActions/ISBaseTimedAction"
 require "Needs/KH_NeedsCore"
 require "Thoughts/KH_Thoughts"
+require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -149,6 +150,10 @@ end
 local function onFillInventoryContext(playerIndex, context, items)
     local character = getSpecificPlayer(playerIndex)
     if not character then return end
+    -- Lifestyle: Hobbies owns hygiene when present + toggle on. Don't add KH's
+    -- brush-teeth / deodorant options (deodorant masks the now-dormant bath
+    -- need anyway, so it'd be a no-op).
+    if KH.deferHygiene and KH.deferHygiene() then return end
     local inv = character:getInventory()
     if not inv then return end
     -- Brush teeth requires both a toothbrush AND toothpaste in inventory

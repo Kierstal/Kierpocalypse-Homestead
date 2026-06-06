@@ -10,6 +10,7 @@
 -- degradation -- see TOILET_BATH_SCOPE.md).
 
 require "TimedActions/ISBaseTimedAction"
+require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -151,6 +152,9 @@ end
 local function onFillContext(playerArg, context, worldobjects, test)
     if test then return end
     if not worldobjects then return end
+    -- Lifestyle: Hobbies owns the toilet axis when present + toggle on. Skip
+    -- KH's "Use Toilet" option so it doesn't duplicate Lifestyle's.
+    if KH.deferToilet and KH.deferToilet() then return end
     local seen = {}
     local sawToilet = false
     local spriteNames = {}  -- for the no-toilet-found diagnostic below

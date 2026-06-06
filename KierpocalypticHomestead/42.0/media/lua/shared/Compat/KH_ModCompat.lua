@@ -123,6 +123,21 @@ function KH.shouldDefer(modFlag, sandboxOptName)
     return val == true
 end
 
+-- Convenience wrappers for the Lifestyle: Hobbies deferral, so the hygiene and
+-- toilet modules don't each hard-code the option-name strings. Hobbies owns a
+-- thorough hygiene/toilet axis; when it's loaded AND the matching toggle is on
+-- (default true) KH's overlapping modules go dormant to avoid double moodles and
+-- duplicate context-menu actions. With Hobbies absent, both return false and KH
+-- runs its own hygiene/toilet normally. (Note shouldDefer's fail-safe: if the
+-- mod is present but the option can't be read, it defers - the safer choice.)
+function KH.deferHygiene()
+    return KH.shouldDefer("lifestyle", "KHCompat.DeferToLifestyle_Hygiene")
+end
+
+function KH.deferToilet()
+    return KH.shouldDefer("lifestyle", "KHCompat.DeferToLifestyle_Toilet")
+end
+
 -- Deferred until OnGameBoot just for a clean, ordered log line.
 -- The one-line summary prints regardless of KH.DEBUG: it's the player's
 -- at-a-glance confirmation (straight from console.txt) of which optional-mod
