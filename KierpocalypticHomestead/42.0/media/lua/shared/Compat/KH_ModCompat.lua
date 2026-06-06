@@ -124,18 +124,23 @@ function KH.shouldDefer(modFlag, sandboxOptName)
 end
 
 -- Deferred until OnGameBoot just for a clean, ordered log line.
+-- The one-line summary prints regardless of KH.DEBUG: it's the player's
+-- at-a-glance confirmation (straight from console.txt) of which optional-mod
+-- integrations KH armed this launch. On a Vanilla + KH-only install this
+-- reads as "no integrations active", which is the reassurance that every
+-- compat feature correctly stood down. Per-mod verbose detail stays gated
+-- behind KH.DEBUG.
 local function logResults()
-    if not KH.DEBUG then return end
     local active = {}
     for flag, on in pairs(KH.compat) do
         if on then active[#active + 1] = flag end
     end
-    if #active == 0 then
-        print("[KH] ModCompat: no tracked compat mods detected")
-        return
-    end
     table.sort(active)
-    print("[KH] ModCompat: detected " .. table.concat(active, ", "))
+    if #active == 0 then
+        print("[KH] ModCompat: no optional-mod integrations active (Vanilla + KH). All compat features dormant.")
+    else
+        print("[KH] ModCompat: optional-mod integrations active for: " .. table.concat(active, ", "))
+    end
 end
 
 Events.OnGameBoot.Add(logResults)
