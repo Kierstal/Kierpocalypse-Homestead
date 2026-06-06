@@ -1,0 +1,40 @@
+name: Lua compile check
+
+# Guards against the class of bug that bit us on 2026-06-06: files that arrive
+# TRUNCATED (zip/transfer corruption) or with syntax errors. Project Zomboid
+# silently disables a Lua file that fails to load, so a chopped file can quietly
+# break a whole system. This compiles every mod Lua file with luac (Lua 5.1, the
+# closest match to PZ's Kahlua) and fails the run if any file won't parse.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  luac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua 5.1 (provides luac5.1)
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+
+      - name: Compile-check every mod Lua file
+        run: |
+          fail=0
+          count=0
+          while IFS= read -r -d '' f; do
+            count=$((count + 1))
+            if ! luac5.1 -p "$f" 2> /tmp/luaerr; then
+              echo "::error file=$f::Lua failed to compile (syntax error or truncation)"
+              sed 's/^/    /' /tmp/luaerr
+              fail=1
+            fi
+          done < <(find KierpocalypticHomestead -name '*.lua' -print0)
+          echo "Checked $count Lua files."
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::One or more Lua files failed to compile."
+            exit 1
+          fi
+          echo "All Lua files compile cleanly."

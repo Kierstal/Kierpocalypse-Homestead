@@ -228,4 +228,56 @@ local function onMark(worldobjects, playerArg, kind)
     local sq = p:getCurrentSquare(); if not sq then return end
     if KH.Home.markBuilding(p, sq, kind) and HaloTextHelper and HaloTextHelper.addText then
         local label
-        if     kind == "homestead
+        if     kind == "homestead"  then label = "Marked as Homestead"
+        elseif kind == "waystation" then label = "Marked as Waystation"
+        elseif kind == "safehouse"  then label = "Marked as Safehouse"
+        else                              label = "Territory cleared"
+        end
+        pcall(function() HaloTextHelper.addText(p, label) end)
+    end
+end
+
+-- Right-click while standing in a building -> a "Homestead Territory" submenu
+-- to mark the current building as homestead / waystation / safehouse, or clear
+-- it. One type per building; the current type is omitted from the menu.
+-- (Reconstructed 2026-06-06: the shipped file was truncated mid-string here.)
+local function onFillContext(playerNum, context, worldobjects, test)
+    if test then return end
+    local p = getSpecificPlayer(playerNum)
+    if not p then return end
+    local sq = p:getCurrentSquare()
+    if not sq then return end
+    local bld
+    pcall(function() bld = sq:getBuilding() end)
+    if not bld then return end  -- only meaningful inside a building
+
+    local current = KH.Home.currentType(p)
+
+    local before = (context.options and #context.options) or 0
+    local root = context:addOption("Homestead Territory", worldobjects, nil)
+    if KH.UI and KH.UI.markOption then KH.UI.markOption(root) end
+    local sub = context:getNew(context)
+    context:addSubMenu(root, sub)
+
+    if current ~= "homestead" then
+        sub:addOption("Mark as Homestead",  worldobjects, onMark, playerNum, "homestead")
+    end
+    if current ~= "waystation" then
+        sub:addOption("Mark as Waystation", worldobjects, onMark, playerNum, "waystation")
+    end
+    if current ~= "safehouse" then
+        sub:addOption("Mark as Safehouse",  worldobjects, onMark, playerNum, "safehouse")
+    end
+    if current ~= nil then
+        sub:addOption("Clear Territory",    worldobjects, onMark, playerNum, nil)
+    end
+
+    local after = (context.options and #context.options) or 0
+    if KH.UI and KH.UI.moveLastAddedToTop then
+        KH.UI.moveLastAddedToTop(context, after - before)
+    end
+end
+
+Events.OnFillWorldObjectContextMenu.Add(onFillContext)
+
+print("[KH] Home territory system loaded (v" .. KH.modules.HomeTerritory .. ")")

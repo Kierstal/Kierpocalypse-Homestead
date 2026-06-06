@@ -226,4 +226,31 @@ local function onTakeTrashClicked(worldobjects, playerArg, trashObj)
     ISTimedActionQueue.add(KH_TakeTrashAction:new(character, trashObj))
 end
 
-local function onFillContextMenu(playerArg, context, worldobj
+local function onFillContextMenu(playerArg, context, worldobjects, test)
+    -- (Reconstructed 2026-06-06: the shipped file was truncated at this line.)
+    if test then return end
+    if not worldobjects then return end
+    local seen = {}
+    local spriteNames = {}  -- for the DEBUG dump below
+    for _, obj in ipairs(worldobjects) do
+        if obj and isTrashObject(obj) and not seen[obj] then
+            seen[obj] = true
+            local label = (getText and getText("ContextMenu_KH_TakeTrash")) or "Take Trash"
+            local opt = context:addOption(label, worldobjects, onTakeTrashClicked, playerArg, obj)
+            if KH.UI and KH.UI.markOption then KH.UI.markOption(opt) end
+        end
+        if DEBUG then
+            local sn = getSpriteName(obj)
+            if sn then spriteNames[#spriteNames + 1] = sn end
+        end
+    end
+    -- Diagnostic: dump sprite names under the cursor so unrecognized trash
+    -- sprites can be added to SPRITE_TO_BIN. Turn DEBUG off when stable.
+    if DEBUG and #spriteNames > 0 then
+        print("[KH][trash-debug] sprites under cursor: " .. table.concat(spriteNames, ", "))
+    end
+end
+
+Events.OnFillWorldObjectContextMenu.Add(onFillContextMenu)
+
+print("[KH] Trash pickup context menu registered (v" .. KH.modules.TrashPickup .. ")")

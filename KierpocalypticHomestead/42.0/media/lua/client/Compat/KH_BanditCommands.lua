@@ -154,4 +154,14 @@ local function _onFillContext(playerID, context, worldobjects, test)
         menu:addOption("Come With Me",    player, _comeWithMe, bandit)
         menu:addOption("Stand Down",      player, _standDown, bandit)
     else
+        -- Unknown program - still allow the recruit option as a fallback so
+        -- the menu is never empty on a bandit we don't have a program read for.
+        menu:addOption("Come With Me", player, _comeWithMe, bandit)
+    end
+end
+
+-- (Reconstructed 2026-06-06: the shipped file was truncated mid-'else' here.)
+Events.OnFillWorldObjectContextMenu.Add(_onFillContext)
+
+print("[KH] BanditCommands context menu registered (v" .. KH.modules.BanditCommands .. ")")
         -- Unknown program - still allow the recruit option as a fal
