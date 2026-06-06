@@ -15,5 +15,6 @@
     "ContextMenu_KH_BreakBranches": "Break Branches",
     "ContextMenu_KH_PlaceBedroll": "Set Down Resident Bedroll",
     "ContextMenu_KH_PlaceResident": "Place Resident",
-    "ContextMenu_KH_DismissResident": "Dismiss Resident (recover bedroll)"
+    "ContextMenu_KH_DismissResident": "Dismiss Resident (recover bedroll)",
+    "ContextMenu_KH_PickLock": "Pick Lock (screwdriver + paperclip)"
 }
