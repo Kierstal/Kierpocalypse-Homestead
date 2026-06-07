@@ -227,30 +227,31 @@ local function onTakeTrashClicked(worldobjects, playerArg, trashObj)
 end
 
 local function onFillContextMenu(playerArg, context, worldobjects, test)
-    -- (Reconstructed 2026-06-06: the shipped file was truncated at this line.)
     if test then return end
     if not worldobjects then return end
+    local _kh_before = (context and context.options and #context.options) or 0
+    if DEBUG then
+        local names = {}
+        for _, obj in ipairs(worldobjects) do
+            local n = getSpriteName(obj)
+            if n then table.insert(names, n) end
+        end
+        if #names > 0 then
+            print("[KH][trash-debug] right-click saw sprites: " .. table.concat(names, ", "))
+        end
+    end
     local seen = {}
-    local spriteNames = {}  -- for the DEBUG dump below
     for _, obj in ipairs(worldobjects) do
         if obj and isTrashObject(obj) and not seen[obj] then
             seen[obj] = true
-            local label = (getText and getText("ContextMenu_KH_TakeTrash")) or "Take Trash"
-            local opt = context:addOption(label, worldobjects, onTakeTrashClicked, playerArg, obj)
-            if KH.UI and KH.UI.markOption then KH.UI.markOption(opt) end
-        end
-        if DEBUG then
-            local sn = getSpriteName(obj)
-            if sn then spriteNames[#spriteNames + 1] = sn end
+            local label = getText("ContextMenu_KH_TakeTrash") or "Take Trash"
+            KH.UI.markOption(context:addOption(label, worldobjects, onTakeTrashClicked, playerArg, obj))
         end
     end
-    -- Diagnostic: dump sprite names under the cursor so unrecognized trash
-    -- sprites can be added to SPRITE_TO_BIN. Turn DEBUG off when stable.
-    if DEBUG and #spriteNames > 0 then
-        print("[KH][trash-debug] sprites under cursor: " .. table.concat(spriteNames, ", "))
+    local _kh_after = (context and context.options and #context.options) or 0
+    if KH and KH.UI and KH.UI.moveLastAddedToTop then
+        KH.UI.moveLastAddedToTop(context, _kh_after - _kh_before)
     end
 end
 
 Events.OnFillWorldObjectContextMenu.Add(onFillContextMenu)
-
-print("[KH] Trash pickup context menu registered (v" .. KH.modules.TrashPickup .. ")")

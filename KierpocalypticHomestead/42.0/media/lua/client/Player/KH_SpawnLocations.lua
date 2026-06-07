@@ -56,10 +56,10 @@ local REGIONS = {
 -- visible via PZ debug "Display Coordinates" overlay.
 local LOCATIONS = {
     parkranger = {
-        -- Kierstal's chosen ranger location, captured 2026-05-29 from b42map.com.
-        -- West-side B42 expansion area (outside Muldraugh / WestPoint / Riverside
-        -- region bounds). Likely Echo Creek or forest expansion.
-        { x = 4505, y = 5706, z = 0, label = "ranger station (Kierstal's pick)" },
+        -- Kierstal's chosen homestead: two-house farm POI in Riverside.
+        -- Outside town but close enough to check on safehouses.
+        -- Captured 2026-05-30 from b42map.com.
+        { x = 5712, y = 5727, z = 0, label = "Riverside farm (homestead)" },
     },
 
     -- Future profession entries follow the same shape. Examples to fill in:
@@ -135,53 +135,116 @@ end
 local function _teleportPlayer(player, candidate)
     if not player or not candidate then return false end
     local cell = getCell()
-    if not cell then return false end
-    local sq = cell:getGridSquare(candidate.x, candidate.y, candidate.z or 0)
-    if not sq then
-        print(string.format("[KH] SpawnLocations: square (%d,%d,%d) not loaded yet - skipping teleport",
-            candidate.x, candidate.y, candidate.z or 0))
+    if not cell then
+        print("[KH] SpawnLocations: getCell() returned nil")
         return false
     end
+    local sq = cell:getGridSquare(candidate.x, candidate.y, candidate.z or 0)
+    if not sq then
+        return false  -- chunk not loaded yet; caller will retry
+    end
     local ok = pcall(function() player:setX(sq:getX()) end)
-    if not ok then return false end
+    if not ok then
+        print("[KH] SpawnLocations: setX failed")
+        return false
+    end
     pcall(function() player:setY(sq:getY()) end)
     pcall(function() player:setZ(sq:getZ()) end)
     pcall(function() player:setCurrentSquare(sq) end)
-    print(string.format("[KH] SpawnLocations: teleported to %s (%d,%d,%d)",
+    print(string.format("[KH] SpawnLocations: TELEPORTED to %s (%d,%d,%d)",
         candidate.label or "candidate", candidate.x, candidate.y, candidate.z or 0))
     return true
 end
 
+-- Deferred teleport state. Set at OnGameStart, retried on OnTick until the
+-- target chunk loads OR a generous timeout fires. The old one-shot approach
+-- failed silently when chunks weren't ready at game-start; this fixes that.
+local _pendingTeleport = nil
+local _pendingTries    = 0
+local _pendingMaxTries = 600  -- ~10 seconds of frame ticks before giving up
+
+local function _onTick()
+    if not _pendingTeleport then return end
+    _pendingTries = _pendingTries + 1
+
+    local player = getPlayer()
+    if not player then
+        if _pendingTries > _pendingMaxTries then
+            print("[KH] SpawnLocations: getPlayer() never resolved - giving up")
+            _pendingTeleport = nil
+        end
+        return
+    end
+
+    if _teleportPlayer(player, _pendingTeleport) then
+        _pendingTeleport = nil
+        return
+    end
+
+    if _pendingTries % 60 == 1 then
+        print(string.format(
+            "[KH] SpawnLocations: waiting for square (%d,%d,%d) to load (try %d/%d)",
+            _pendingTeleport.x, _pendingTeleport.y, _pendingTeleport.z or 0,
+            _pendingTries, _pendingMaxTries))
+    end
+
+    if _pendingTries > _pendingMaxTries then
+        print("[KH] SpawnLocations: timed out waiting for target chunk to load")
+        _pendingTeleport = nil
+    end
+end
+
 local function _onGameStart()
+    print("[KH] SpawnLocations: OnGameStart fired - evaluating spawn override")
+
     if not _toggleEnabled() then
-        if KH.DEBUG then print("[KH] SpawnLocations: toggle OFF, no override.") end
+        print("[KH] SpawnLocations: toggle OFF, no override.")
         return
     end
 
     local player = getPlayer()
-    if not player then return end
+    if not player then
+        print("[KH] SpawnLocations: getPlayer() returned nil at OnGameStart")
+        return
+    end
 
     local prof = _profId(player)
-    if not prof then return end
+    print(string.format("[KH] SpawnLocations: profession detected = %s", tostring(prof)))
+    if not prof then
+        print("[KH] SpawnLocations: no profession id, bailing")
+        return
+    end
 
     local candidates = LOCATIONS[prof]
     if not candidates or #candidates == 0 then
-        if KH.DEBUG then print("[KH] SpawnLocations: no entries for profession '"..prof.."'") end
+        print("[KH] SpawnLocations: no entries for profession '"..prof.."'")
         return
     end
 
     local px, py = player:getX(), player:getY()
+    print(string.format("[KH] SpawnLocations: vanilla spawn at (%d,%d)", px, py))
     local region = _regionOf(px, py)  -- nil is fine - advisory only
 
     local pick = _pickCandidate(candidates, region)
     if not pick then
-        if KH.DEBUG then print("[KH] SpawnLocations: no candidate for "..prof) end
+        print("[KH] SpawnLocations: no candidate matched for "..prof)
         return
     end
 
-    _teleportPlayer(player, pick)
+    print(string.format("[KH] SpawnLocations: target = %s (%d,%d,%d)",
+        pick.label or "candidate", pick.x, pick.y, pick.z or 0))
+
+    -- Try immediately. If the chunk isn't loaded yet (almost always the case
+    -- because vanilla just put the player in a different region), arm the
+    -- retry loop. _onTick will keep trying until the chunk loads.
+    if not _teleportPlayer(player, pick) then
+        print("[KH] SpawnLocations: first attempt deferred - target chunk not yet loaded, arming retry")
+        _pendingTeleport = pick
+        _pendingTries    = 0
+    end
 end
 
 Events.OnGameStart.Add(_onGameStart)
+Events.OnTick.Add(_onTick)
 
-print("[KH] SpawnLocations v0.0.1 loaded (toggle-gated, coordinates TBD).")
+print("[KH] SpawnLocations v0.0.2 loaded (deferred teleport with chunk-load retry).")

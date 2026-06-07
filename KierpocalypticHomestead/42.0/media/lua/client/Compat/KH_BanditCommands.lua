@@ -135,9 +135,11 @@ local function _onFillContext(playerID, context, worldobjects, test)
     local program = _programName(bandit)
 
     -- KH submenu under "<Name> (KH commands)" - makes it clear these are
-    -- KH-added commands not Bandits' own menu options.
+    -- KH-added commands not Bandits' own menu options. Uses the same
+    -- ISContextMenu:getNew(context) pattern that KH_HomeTerritory's submenu
+    -- uses - context:getNew(context) doesn't create a valid submenu.
     local root = context:addOption(name .. " (KH)", worldobjects, nil)
-    local menu = context:getNew(context)
+    local menu = ISContextMenu:getNew(context)
     context:addSubMenu(root, menu)
 
     -- Movement commands always available.
@@ -154,14 +156,11 @@ local function _onFillContext(playerID, context, worldobjects, test)
         menu:addOption("Come With Me",    player, _comeWithMe, bandit)
         menu:addOption("Stand Down",      player, _standDown, bandit)
     else
-        -- Unknown program - still allow the recruit option as a fallback so
-        -- the menu is never empty on a bandit we don't have a program read for.
+        -- Unknown program - still allow the recruit option as a fallback.
         menu:addOption("Come With Me", player, _comeWithMe, bandit)
     end
 end
 
--- (Reconstructed 2026-06-06: the shipped file was truncated mid-'else' here.)
 Events.OnFillWorldObjectContextMenu.Add(_onFillContext)
 
-print("[KH] BanditCommands context menu registered (v" .. KH.modules.BanditCommands .. ")")
-        -- Unknown program - still allow the recruit option as a fal
+print("[KH] BanditCommands v0.0.1 loaded (right-click bandit -> '<Name> (KH)' submenu).")

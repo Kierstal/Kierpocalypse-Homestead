@@ -10,7 +10,6 @@
 -- degradation -- see TOILET_BATH_SCOPE.md).
 
 require "TimedActions/ISBaseTimedAction"
-require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -108,6 +107,33 @@ local function _propStr(props, key)
     return tostring(v)
 end
 
+-- Vanilla B42 toilet sprite indices in fixtures_bathroom_01 atlas. Index
+-- runs 0..N; toilets cluster at specific positions. This list is best-effort
+-- - if a user reports a missed toilet, add the index from the trash-debug
+-- output to KH.DEBUG diagnostics. Known toilet indices as of 42.18:
+local FIXTURES_BATHROOM_TOILET_INDICES = {
+    [0]=true, [1]=true, [2]=true, [3]=true,
+    [8]=true, [9]=true, [10]=true, [11]=true,
+    [16]=true, [17]=true, [18]=true, [19]=true,
+    [24]=true, [25]=true, [26]=true, [27]=true,
+    [48]=true, [49]=true, [50]=true, [51]=true,
+}
+
+-- Is the player currently in a bathroom-named room? Used as a gate for the
+-- sprite-name fallback below so we don't surface "Use Toilet" on every
+-- bathroom-coded fixture that happens to be elsewhere.
+local function _inBathroomRoom()
+    local p = getPlayer(); if not p then return false end
+    local sq = p:getCurrentSquare(); if not sq then return false end
+    local room = sq:getRoom(); if not room then return false end
+    local def = room.getRoomDef and room:getRoomDef()
+    local name = def and def.getName and def:getName() or ""
+    name = string.lower(tostring(name))
+    return string.find(name, "bath", 1, true) ~= nil
+        or string.find(name, "restroom", 1, true) ~= nil
+        or string.find(name, "toilet", 1, true) ~= nil
+end
+
 -- Return the toilet's CustomName-ish label if obj looks like a toilet, else nil.
 -- (Returning the label, not just a bool, lets the diagnostic report what it saw.)
 local function toiletLabel(obj)
@@ -122,12 +148,28 @@ local function toiletLabel(obj)
             gn = _propStr(props, "GroupName")
         end
     end
-    -- Substring "toilet" in CustomName ("White Toilet") or GroupName.
+    -- Primary: CustomName has "toilet" (e.g. "White Toilet").
     if cn and string.find(string.lower(cn), "toilet") then return cn end
     if gn and string.find(string.lower(gn), "toilet") then return (gn .. " " .. (cn or "")) end
-    -- Fallback: sprite-name substring (modded toilets / odd naming).
+
+    -- Sprite-name fallback for modded / odd naming.
     local name = sprite.getName and sprite:getName()
     if name and string.find(string.lower(name), "toilet") then return name end
+
+    -- Vanilla B42 fallback: some toilets in fixtures_bathroom_01 don't have
+    -- CustomName set. Detect by atlas + index, AND require the player to be
+    -- in a bathroom-typed room (so we don't surface "Use Toilet" on a hotel
+    -- counter or museum exhibit using the same sprite). Pattern: the suffix
+    -- after the last underscore is the index.
+    if name then
+        local lname = string.lower(tostring(name))
+        if string.find(lname, "fixtures_bathroom_01_", 1, true) then
+            local idx = tonumber(string.match(lname, "_(%d+)$"))
+            if idx and FIXTURES_BATHROOM_TOILET_INDICES[idx] and _inBathroomRoom() then
+                return "Bathroom Toilet"  -- generic label since CustomName is missing
+            end
+        end
+    end
     return nil
 end
 
@@ -152,9 +194,6 @@ end
 local function onFillContext(playerArg, context, worldobjects, test)
     if test then return end
     if not worldobjects then return end
-    -- Lifestyle: Hobbies owns the toilet axis when present + toggle on. Skip
-    -- KH's "Use Toilet" option so it doesn't duplicate Lifestyle's.
-    if KH.deferToilet and KH.deferToilet() then return end
     local seen = {}
     local sawToilet = false
     local spriteNames = {}  -- for the no-toilet-found diagnostic below

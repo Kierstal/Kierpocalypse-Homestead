@@ -123,39 +123,19 @@ function KH.shouldDefer(modFlag, sandboxOptName)
     return val == true
 end
 
--- Convenience wrappers for the Lifestyle: Hobbies deferral, so the hygiene and
--- toilet modules don't each hard-code the option-name strings. Hobbies owns a
--- thorough hygiene/toilet axis; when it's loaded AND the matching toggle is on
--- (default true) KH's overlapping modules go dormant to avoid double moodles and
--- duplicate context-menu actions. With Hobbies absent, both return false and KH
--- runs its own hygiene/toilet normally. (Note shouldDefer's fail-safe: if the
--- mod is present but the option can't be read, it defers - the safer choice.)
-function KH.deferHygiene()
-    return KH.shouldDefer("lifestyle", "KHCompat.DeferToLifestyle_Hygiene")
-end
-
-function KH.deferToilet()
-    return KH.shouldDefer("lifestyle", "KHCompat.DeferToLifestyle_Toilet")
-end
-
 -- Deferred until OnGameBoot just for a clean, ordered log line.
--- The one-line summary prints regardless of KH.DEBUG: it's the player's
--- at-a-glance confirmation (straight from console.txt) of which optional-mod
--- integrations KH armed this launch. On a Vanilla + KH-only install this
--- reads as "no integrations active", which is the reassurance that every
--- compat feature correctly stood down. Per-mod verbose detail stays gated
--- behind KH.DEBUG.
 local function logResults()
+    if not KH.DEBUG then return end
     local active = {}
     for flag, on in pairs(KH.compat) do
         if on then active[#active + 1] = flag end
     end
-    table.sort(active)
     if #active == 0 then
-        print("[KH] ModCompat: no optional-mod integrations active (Vanilla + KH). All compat features dormant.")
-    else
-        print("[KH] ModCompat: optional-mod integrations active for: " .. table.concat(active, ", "))
+        print("[KH] ModCompat: no tracked compat mods detected")
+        return
     end
+    table.sort(active)
+    print("[KH] ModCompat: detected " .. table.concat(active, ", "))
 end
 
 Events.OnGameBoot.Add(logResults)

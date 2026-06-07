@@ -12,7 +12,6 @@ require "Filth/KH_FilthScan"
 require "Dirt/KH_DirtScore"
 require "Needs/KH_NeedsCore"
 require "Thoughts/KH_Thoughts"
-require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -23,8 +22,6 @@ local LAST_ASLEEP_KEY = "KH_lastWasAsleep"
 local function onTick()
     local p = getPlayer()
     if not p or p:isDead() then return end
-    -- Lifestyle: Hobbies owns hygiene when present + toggle on -> stay dormant.
-    if KH.deferHygiene and KH.deferHygiene() then return end
     local d = p:getModData()
     local nowAsleep = (p.isAsleep and p:isAsleep()) and true or false
     local wasAsleep = d[LAST_ASLEEP_KEY] and true or false

@@ -4,9 +4,9 @@
 -- on locked doors and closed windows when the player has a crowbar in
 -- primary or secondary hand.
 --
--- - Locked door: the crowbar forces it open - clears the lock (key or latch)
---                and opens the door, every attempt, with light condition
---                damage to the crowbar. (Brute force; no random failure.)
+-- - Locked door: 80% chance to unlock + light condition damage to crowbar.
+--                If roll fails, condition damage still applies (you made
+--                progress, no result this attempt).
 -- - Closed window with locked latch: smashes the latch and opens. Always
 --                succeeds (windows don't have a "locked" boolean like
 --                doors; if it's closed, prying just opens it.)
@@ -17,9 +17,10 @@ require "TimedActions/ISBaseTimedAction"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
-KH.modules.PryAction = "0.0.2"
+KH.modules.PryAction = "0.0.1"
 
 local BASE_TICKS = 120
+local UNLOCK_CHANCE = 80  -- percent
 
 local function findCrowbar(character)
     if not character or not character.getInventory then return nil end
@@ -90,13 +91,20 @@ function KH_PryAction:perform()
         end
     end
     if self.targetType == "door" and self.target then
-        -- Crowbar forces the door every attempt: clear BOTH lock types (key
-        -- lock + latch) and open it. The old version rolled 80% and only
-        -- called setLocked(false), so key-locked doors could "succeed" yet
-        -- stay shut - felt like "fires once and sometimes does nothing."
-        pcall(function() if self.target.setLockedByKey then self.target:setLockedByKey(false) end end)
-        pcall(function() if self.target.setLocked     then self.target:setLocked(false)     end end)
-        pcall(function() if self.target.ToggleDoor    then self.target:ToggleDoor(self.character) end end)
+        -- Roll for success FIRST. Only unlock on success - otherwise the door
+        -- stays locked and the player can retry. Earlier version unlocked
+        -- unconditionally, which made the pry option disappear after one
+        -- attempt because isLockedDoor returned false.
+        if ZombRand(100) < UNLOCK_CHANCE then
+            if self.target.setLocked then
+                pcall(function() self.target:setLocked(false) end)
+            end
+            if self.target.ToggleDoor then
+                pcall(function() self.target:ToggleDoor(self.character) end)
+            end
+        end
+        -- Failed roll: condition damage already applied above. Door stays
+        -- locked. Player can attempt again.
     elseif self.targetType == "window" and self.target then
         if self.target.smashWindow then
             pcall(function() self.target:smashWindow() end)

@@ -322,6 +322,9 @@ local function commitAdoption(p, animal, name)
 
     -- Flavor line via Thoughts (force-fire: adoption is a milestone)
     petThought(p, "adopt", name, true)
+
+    -- Rename the designated pet bowl (if any) to match the new pet's name.
+    renameBowlItem(p, name .. "'s Bowl")
 end
 
 -- ISTextBox callback. button.internal == "OK" means Confirm pressed.
@@ -435,6 +438,11 @@ local function onDisownPet(worldobjects, playerArg)
     st.stayMode = false
     st.trickContainerId = nil
     st.hasCollar = false
+
+    -- Restore the pet bowl to a generic name and clear the designation.
+    -- (renameBowlItem reads KH_PetBowl before we clear it, so order matters.)
+    renameBowlItem(p, "Pet Bowl")
+    p:getModData()["KH_PetBowl"] = nil
 end
 
 local function onPetStatus(worldobjects, playerArg)
@@ -854,6 +862,108 @@ local function containerKey(obj)
     return string.format("%d:%d:%d:%d", sq:getX(), sq:getY(), sq:getZ(), oid or 0)
 end
 
+-- ---- Pet bowl designation ----
+-- Item types that qualify as a designatable pet bowl.
+-- WaterDish = vanilla pet water dish (fluid container, DisplayCategory=Animal).
+-- Food bags = placed pet food items the pet auto-consumes from.
+local PET_BOWL_ITEM_TYPES = {
+    WaterDish  = true,
+    CatFoodBag = true, DogFoodBag = true,
+    PetFood    = true, Dogfood    = true, DogfoodOpen = true,
+}
+
+-- Returns true if obj is a placed pet food/water item we can designate.
+local function isPetBowlObj(obj)
+    if not obj then return false end
+    if not instanceof(obj, "IsoWorldInventoryObject") then return false end
+    local it; pcall(function() it = obj:getItem() end)
+    if not it then return false end
+    local t; pcall(function() t = it:getType() end)
+    return t ~= nil and PET_BOWL_ITEM_TYPES[t] == true
+end
+
+-- Stable key for a placed pet bowl item: "x:y:z:type".
+local function bowlObjKey(obj)
+    if not obj then return nil end
+    local sq; pcall(function() sq = obj:getSquare() end)
+    if not sq then return nil end
+    local it; pcall(function() it = obj:getItem() end)
+    local t = "unknown"
+    if it then pcall(function() t = it:getType() end) end
+    return string.format("%d:%d:%d:%s", sq:getX(), sq:getY(), sq:getZ(), t)
+end
+
+-- Find the actual InventoryItem for the player's designated pet bowl.
+-- Returns the item (from the world floor object) or nil.
+local function findDesignatedBowlItem(player)
+    local md = player:getModData()
+    local bowl = md["KH_PetBowl"]
+    if not bowl or not bowl.key then return nil end
+    local x, y, z, t = bowl.key:match("^(%d+):(%d+):(%d+):(.+)$")
+    x, y, z = tonumber(x), tonumber(y), tonumber(z)
+    if not x then return nil end
+    local cell = getCell(); if not cell then return nil end
+    local sq = cell:getGridSquare(x, y, z or 0)
+    if not sq then return nil end
+    local objs; pcall(function() objs = sq:getObjects() end)
+    if not objs then return nil end
+    for i = 0, objs:size() - 1 do
+        local o = objs:get(i)
+        if o and instanceof(o, "IsoWorldInventoryObject") then
+            local it; pcall(function() it = o:getItem() end)
+            if it then
+                local ot; pcall(function() ot = it:getType() end)
+                if ot == t then return it end
+            end
+        end
+    end
+    return nil
+end
+
+-- Rename the designated bowl item to reflect the current pet.
+-- Called after adoption and after clearing (disown/death).
+local function renameBowlItem(player, newName)
+    local item = findDesignatedBowlItem(player)
+    if not item then return end
+    pcall(function() item:setName(newName) end)
+    -- Persist the label in modData so we can restore it after save/load
+    -- if setName doesn't survive serialization.
+    local md = player:getModData()
+    local bowl = md["KH_PetBowl"]
+    if bowl then bowl.displayName = newName end
+end
+
+-- Context callbacks for bowl designation.
+local function onDesignatePetBowl(worldobjects, playerArg, bowlObj)
+    local p = (type(playerArg) == "number") and getSpecificPlayer(playerArg) or getPlayer()
+    if not p or not bowlObj then return end
+    local key = bowlObjKey(bowlObj)
+    if not key then
+        emit(p, "Can't pin this item as a bowl.")
+        return
+    end
+    local md = p:getModData()
+    md["KH_PetBowl"] = { key = key }
+    -- If the player already has a pet, name it immediately.
+    local st = petState(p)
+    if st and st.petName then
+        renameBowlItem(p, st.petName .. "'s Bowl")
+        emit(p, string.format("Designated as %s's Bowl.", st.petName))
+    else
+        emit(p, "Pet bowl designated. It will be named when you adopt a pet.")
+    end
+end
+
+local function onUndesignatePetBowl(worldobjects, playerArg)
+    local p = (type(playerArg) == "number") and getSpecificPlayer(playerArg) or getPlayer()
+    if not p then return end
+    -- Restore generic name before clearing
+    renameBowlItem(p, "Pet Bowl")
+    local md = p:getModData()
+    md["KH_PetBowl"] = nil
+    emit(p, "Pet bowl designation removed.")
+end
+
 -- Try to move one floor-item near the pet INTO the trick container.
 -- Called periodically from the AI tick when a trick container is set.
 function doRummageTrick(p, st, animal)
@@ -1195,6 +1305,35 @@ local function onFillContextMenu(playerArg, context, worldobjects, test)
     -- Always offer pet status / release if we have a live pet
     if hasLivePet then
         addPetSubMenu(context, worldobjects, playerArg, st)
+    end
+
+    -- Pet bowl designation: scan worldobjects for placeable pet dish/food items.
+    do
+        local bowlObj = nil
+        for _, obj in ipairs(worldobjects) do
+            if isPetBowlObj(obj) then bowlObj = obj; break end
+        end
+        if bowlObj then
+            local md = p:getModData()
+            local bowl = md["KH_PetBowl"]
+            local bowlKey = bowlObjKey(bowlObj)
+            local alreadyDesignated = bowl and bowl.key == bowlKey
+            if alreadyDesignated then
+                -- Show "remove" option; label shows pet name if available.
+                local lbl = "Remove Pet Bowl Designation"
+                if st and st.petName then
+                    lbl = "Remove " .. st.petName .. "'s Bowl"
+                end
+                KH.UI.markOption(context:addOption(lbl, worldobjects, onUndesignatePetBowl, playerArg))
+            else
+                -- Show "designate" option; label shows pet name if already adopted.
+                local lbl = "Designate as Pet Bowl"
+                if st and st.petName then
+                    lbl = "Designate as " .. st.petName .. "'s Bowl"
+                end
+                KH.UI.markOption(context:addOption(lbl, worldobjects, onDesignatePetBowl, playerArg, bowlObj))
+            end
+        end
     end
 
     -- Reorder: KH options to the top of the context menu

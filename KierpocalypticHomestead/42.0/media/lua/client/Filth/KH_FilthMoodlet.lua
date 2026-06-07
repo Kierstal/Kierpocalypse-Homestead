@@ -10,7 +10,6 @@
 require "Filth/KH_FilthScan"
 require "Needs/KH_NeedsCore"
 require "Thoughts/KH_Thoughts"
-require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -31,8 +30,6 @@ local DELTAS = {
 local function tick()
     local player = getPlayer()
     if not player or player:isDead() then return end
-    -- Lifestyle: Hobbies owns hygiene when present + toggle on -> stay dormant.
-    if KH.deferHygiene and KH.deferHygiene() then return end
 
     local result = KH.FilthScan.scoreRoom(player)
     KH.Needs.set(player, "KH_lastFilthScore", result.total)
@@ -68,20 +65,14 @@ local function tick()
     -- and still fire anywhere.
     local crossing = KH.Needs.checkCrossing(player, "filth_room", result.total, THRESHOLDS)
     if crossing then
-        if crossing.direction == "up" and crossing.newTier == 2 then
+        if crossing.direction == "up" and crossing.newTier >= 2 then
             KH.Thoughts.emit(player, "filth", "becameFilthy")
-        elseif crossing.direction == "up" and crossing.newTier == 3 then
-            KH.Thoughts.emit(player, "filth", "squalor")
         elseif crossing.direction == "down" and crossing.newTier == 0 then
-            -- "becameClean" reads as an emotional sigh about HER space, so only
-            -- fire it on her own claimed property (homestead/waystation/
-            -- safehouse) - not a gas-station counter she happened to wipe down.
-            -- becameFilthy/squalor above are universal room observations and
-            -- fire anywhere. (Reconstructed 2026-06-06: the shipped file was
-            -- truncated mid-statement here; see chat note.)
             if KH.Home and KH.Home.isAtHome and KH.Home.isAtHome(player) then
                 KH.Thoughts.emit(player, "filth", "becameClean")
             end
+        elseif crossing.newTier == 3 then
+            KH.Thoughts.emit(player, "filth", "squalor")
         end
     end
 end

@@ -9,7 +9,6 @@
 require "Dirt/KH_DirtScore"
 require "Needs/KH_NeedsCore"
 require "Thoughts/KH_Thoughts"
-require "Compat/KH_ModCompat"
 
 KH = KH or {}
 KH.modules = KH.modules or {}
@@ -28,8 +27,6 @@ local DELTAS = {
 local function tick()
     local player = getPlayer()
     if not player or player:isDead() then return end
-    -- Lifestyle: Hobbies owns hygiene when present + toggle on -> stay dormant.
-    if KH.deferHygiene and KH.deferHygiene() then return end
 
     local score = KH.DirtScore.compute(player)
     KH.Needs.set(player, "KH_lastDirtScore", score.total)

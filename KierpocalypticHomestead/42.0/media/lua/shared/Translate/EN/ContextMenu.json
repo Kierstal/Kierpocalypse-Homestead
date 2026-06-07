@@ -12,9 +12,5 @@
     "ContextMenu_KH_PlayBoardGame": "Play a game",
     "ContextMenu_KH_KillZombies_On": "Kill Zombies (KH): ON",
     "ContextMenu_KH_KillZombies_Off": "Kill Zombies (KH): OFF",
-    "ContextMenu_KH_BreakBranches": "Break Branches",
-    "ContextMenu_KH_PlaceBedroll": "Set Down Resident Bedroll",
-    "ContextMenu_KH_PlaceResident": "Place Resident",
-    "ContextMenu_KH_DismissResident": "Dismiss Resident (recover bedroll)",
-    "ContextMenu_KH_PickLock": "Pick Lock (screwdriver + paperclip)"
+    "ContextMenu_KH_BreakBranches": "Break Branches"
 }

@@ -20,7 +20,7 @@
 
 KH = KH or {}
 KH.modules = KH.modules or {}
-KH.modules.HomeTerritory = "0.3.0"
+KH.modules.HomeTerritory = "0.3.1"
 KH.Home = KH.Home or {}
 
 local TERRITORIES_KEY = "KH_Territories"     -- md.KH_Territories[buildingId] = "homestead" | "waystation"
@@ -63,8 +63,9 @@ end
 
 -- ---------- public API ----------
 
--- Mark the building containing sq as the given type. Type must be
--- "homestead" or "waystation". Pass type=nil to remove.
+-- Mark the building containing sq as the given type. Pass type=nil to remove.
+-- Homestead is SINGLE-LOT-ONLY: marking a new homestead auto-removes the old
+-- one. Waystations and Safehouses allow multiple.
 -- Stores the player's current square coords with the entry so teleporting
 -- the pet home later doesn't depend on a vanilla-API-that-doesnt-exist to
 -- find a square inside the building.
@@ -76,6 +77,15 @@ function KH.Home.markBuilding(player, sq, kind)
     if kind == nil then
         t[id] = nil
     else
+        -- Homestead is single-lot-only: evict the previous one first.
+        if kind == "homestead" then
+            for existingId, entry in pairs(t) do
+                if existingId ~= id and entryKind(entry) == "homestead" then
+                    t[existingId] = nil
+                    break
+                end
+            end
+        end
         -- Save player current square as the teleport anchor for this territory
         local pSq = player:getCurrentSquare()
         local x, y, z = nil, nil, nil
@@ -83,6 +93,22 @@ function KH.Home.markBuilding(player, sq, kind)
         t[id] = { kind = kind, x = x, y = y, z = z }
     end
     return true
+end
+
+-- Returns the single homestead entry {id, kind, x, y, z}, or nil.
+function KH.Home.getHomestead(player)
+    local t = territoriesOf(player)
+    if not t then return nil end
+    for id, entry in pairs(t) do
+        if entryKind(entry) == "homestead" then
+            if type(entry) == "table" then
+                return { id = id, kind = "homestead", x = entry.x, y = entry.y, z = entry.z }
+            else
+                return { id = id, kind = "homestead" }
+            end
+        end
+    end
+    return nil
 end
 
 -- Resolve an entry to just its kind, accepting either old-shape (string)
@@ -228,56 +254,55 @@ local function onMark(worldobjects, playerArg, kind)
     local sq = p:getCurrentSquare(); if not sq then return end
     if KH.Home.markBuilding(p, sq, kind) and HaloTextHelper and HaloTextHelper.addText then
         local label
-        if     kind == "homestead"  then label = "Marked as Homestead"
-        elseif kind == "waystation" then label = "Marked as Waystation"
-        elseif kind == "safehouse"  then label = "Marked as Safehouse"
-        else                              label = "Territory cleared"
-        end
+        if     kind == "homestead"  then label = "Marked as Homestead."
+        elseif kind == "waystation" then label = "Marked as Waystation."
+        elseif kind == "safehouse"  then label = "Marked as Safehouse."
+        else label = "Marked." end
         pcall(function() HaloTextHelper.addText(p, label) end)
     end
 end
 
--- Right-click while standing in a building -> a "Homestead Territory" submenu
--- to mark the current building as homestead / waystation / safehouse, or clear
--- it. One type per building; the current type is omitted from the menu.
--- (Reconstructed 2026-06-06: the shipped file was truncated mid-string here.)
-local function onFillContext(playerNum, context, worldobjects, test)
-    if test then return end
-    local p = getSpecificPlayer(playerNum)
+local function onForget(worldobjects, playerArg)
+    local p = (type(playerArg) == "number") and getSpecificPlayer(playerArg) or getPlayer()
     if not p then return end
-    local sq = p:getCurrentSquare()
-    if not sq then return end
-    local bld
-    pcall(function() bld = sq:getBuilding() end)
-    if not bld then return end  -- only meaningful inside a building
-
-    local current = KH.Home.currentType(p)
-
-    local before = (context.options and #context.options) or 0
-    local root = context:addOption("Homestead Territory", worldobjects, nil)
-    if KH.UI and KH.UI.markOption then KH.UI.markOption(root) end
-    local sub = context:getNew(context)
-    context:addSubMenu(root, sub)
-
-    if current ~= "homestead" then
-        sub:addOption("Mark as Homestead",  worldobjects, onMark, playerNum, "homestead")
-    end
-    if current ~= "waystation" then
-        sub:addOption("Mark as Waystation", worldobjects, onMark, playerNum, "waystation")
-    end
-    if current ~= "safehouse" then
-        sub:addOption("Mark as Safehouse",  worldobjects, onMark, playerNum, "safehouse")
-    end
-    if current ~= nil then
-        sub:addOption("Clear Territory",    worldobjects, onMark, playerNum, nil)
-    end
-
-    local after = (context.options and #context.options) or 0
-    if KH.UI and KH.UI.moveLastAddedToTop then
-        KH.UI.moveLastAddedToTop(context, after - before)
+    local sq = p:getCurrentSquare(); if not sq then return end
+    if KH.Home.markBuilding(p, sq, nil) and HaloTextHelper and HaloTextHelper.addText then
+        pcall(function() HaloTextHelper.addText(p, "Forgot this territory.") end)
     end
 end
 
-Events.OnFillWorldObjectContextMenu.Add(onFillContext)
+local function onFillContextMenu(playerArg, context, worldobjects, test)
+    local _kh_before = (context and context.options and #context.options) or 0
+    if test then return end
+    local p = (type(playerArg) == "number") and getSpecificPlayer(playerArg) or getPlayer()
+    if not p then return end
+    local sq = p:getCurrentSquare(); if not sq then return end
+    local hereId = buildingIdOfSquare(sq)
+    if not hereId then return end  -- must be inside a building
 
-print("[KH] Home territory system loaded (v" .. KH.modules.HomeTerritory .. ")")
+    local currentKind = KH.Home.typeAt(p, sq)
+    local rootOpt = KH.UI.markOption(context:addOption("Territory", worldobjects, nil))
+    local sub = ISContextMenu:getNew(context)
+    context:addSubMenu(rootOpt, sub)
+
+    if currentKind ~= "homestead" then
+        KH.UI.markOption(sub:addOption("Mark as Homestead", worldobjects, onMark, playerArg, "homestead"))
+    end
+    if currentKind ~= "waystation" then
+        KH.UI.markOption(sub:addOption("Mark as Waystation", worldobjects, onMark, playerArg, "waystation"))
+    end
+    if currentKind ~= "safehouse" then
+        KH.UI.markOption(sub:addOption("Mark as Safehouse", worldobjects, onMark, playerArg, "safehouse"))
+    end
+    if currentKind then
+        local label = string.format("Forget (currently: %s)", currentKind)
+        KH.UI.markOption(sub:addOption(label, worldobjects, onForget, playerArg))
+    end
+    local _kh_after = (context and context.options and #context.options) or 0
+    if KH and KH.UI and KH.UI.moveLastAddedToTop then
+        KH.UI.moveLastAddedToTop(context, _kh_after - _kh_before)
+    end
+end
+Events.OnFillWorldObjectContextMenu.Add(onFillContextMenu)
+
+print("[KH] HomeTerritory v0.3.1 (Homesteads + Waystations + Safehouses) registered.")
